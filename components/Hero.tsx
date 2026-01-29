@@ -112,7 +112,7 @@ export default function Hero() {
   position="left"
   size={1700}
   yOffset={-420}
-  duration={110}
+  duration={30}
   icons={[
     { Icon: Palette, angle: 120 },
     { Icon: Code, angle: 155 },
@@ -126,7 +126,7 @@ export default function Hero() {
   position="right"
   size={1700}
   yOffset={-460}
-  duration={110}
+  duration={20}
   icons={[
     { Icon: Rocket, angle: 310, bg: "bg-black" },
     { Icon: Pencil, angle: 345, bg: "bg-black" },
@@ -142,7 +142,7 @@ export default function Hero() {
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-8 bg-white/40 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-gray-100 mb-8 bg-white/40 backdrop-blur-sm"
         >
           <span>{">"}</span> DIGITAL AGENCY <span>{"<"}</span>
         </motion.div>
@@ -162,7 +162,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-[#666] text-sm md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
+          className="text-[#b8b5b5] text-sm md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
         >
           We provide complete end to end marketing services right from website development to performance marketing plus personal branding.
         </motion.p>
@@ -189,7 +189,7 @@ export default function Hero() {
       </div>
 
       {/* --- Footer Logos --- */}
-      <div className="mt-32 w-full max-w-5xl z-10 border-t border-dashed border-gray-300 pt-12">
+      <div className="mt-32 w-full max-w-full z-10 border-t border-dashed border-gray-700 pt-12">
         <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-bold">
           TRUSTED BY 100+ GLOBAL LEADERS
         </p>

@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Laptop, House } from "lucide-react";
 
 export default function BentoGrid() {
   return (
-    <section className="bg-[#0B1220] py-20 px-4 md:px-10 font-sans">
+    <section className="bg-[#0B1220] py-20 px-4 md:px-10 font-poppins">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4">
         
         {/* --- Card 1: CSAT --- */}

@@ -5,7 +5,7 @@ import { Check, Flame } from "lucide-react";
 
 export default function GrowthPartner() {
   return (
-    <section className="bg-[#0B1220] py-24 px-4 md:px-10 font-sans">
+    <section className="bg-[#0B1220] py-24 px-4 md:px-10 font-poppins">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
@@ -20,7 +20,7 @@ export default function GrowthPartner() {
         </div>
 
         {/* Main Card Container */}
-        <div className="bg-[#EAEAEA] rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden">
+        <div className="bg-[#fbe2d4] rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden">
           <div className="flex  items-center justify-center">
             
             {/* Left Side: Empty Space / Minimal graphic area */}

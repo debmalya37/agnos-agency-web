@@ -54,7 +54,7 @@ export default function ProjectWall() {
             <div className="w-4 h-4 bg-white rounded-full -rotate-45" />
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-6 font-mono">
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-6 font-poppins">
             100+ Premium <br /> Designs
           </h2>
 

@@ -5,7 +5,7 @@ import { ArrowRight, Facebook, Instagram, Linkedin, X, Check } from "lucide-reac
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0B1220] pt-20 md:pt-32 overflow-hidden font-sans">
+    <footer className="relative bg-[#0B1220] pt-20 md:pt-32 overflow-hidden font-poppins">
       
       {/* --- Background Arc (Z-0) --- */}
       <div className="absolute top-[150px] left-1/2 -translate-x-1/2 w-[200%] md:w-[150%] h-[2000px] bg-[#F3F3F3] rounded-[100%] z-0 pointer-events-none" />

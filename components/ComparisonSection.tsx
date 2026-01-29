@@ -22,7 +22,7 @@ const agnosBenefits = [
 
 export default function ComparisonSection() {
   return (
-    <section className="py-24 bg-[#0B1220] px-4 font-sans">
+    <section className="py-24 bg-[#0B1220] px-4 font-poppins">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
         
         {/* Header Section */}
