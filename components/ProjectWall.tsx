@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const projectImages = [
   "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80",
@@ -50,16 +51,22 @@ export default function ProjectWall() {
           className="pointer-events-auto bg-white rounded-full w-[280px] h-[280px] md:w-[450px] md:h-[450px] shadow-2xl border border-gray-100 flex flex-col items-center justify-center p-8 text-center"
         >
           {/* Logo Placeholder */}
-          <div className="w-10 h-10 md:w-14 md:h-14 bg-orange-500 rounded-xl rotate-45 mb-6 flex items-center justify-center shadow-lg shadow-orange-200">
-            <div className="w-4 h-4 bg-white rounded-full -rotate-45" />
-          </div>
+          <div className="relative w-14 h-14 md:w-20 md:h-20 mb-6">
+  <Image
+    src="/assets/logo.png"
+    alt="Company logo"
+    fill
+    className="object-contain drop-shadow-xl"
+    priority
+  />
+</div>
 
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-6 font-poppins">
             Worked with 30+ Precious Clients
           </h2>
 
           <button className="bg-orange-500 text-white px-4 py-3 md:px-4 md:py-2 rounded-full font-light text-sm md:text-lg hover:bg-orange-600 transition-all shadow-xl shadow-orange-100">
-            Explore all Projects
+            See Project Work
           </button>
         </motion.div>
       </div>

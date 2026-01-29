@@ -4,33 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* ---------------- DATA ---------------- */
+/* ---------------- DATA ---------------- */
 const STEPS = [
   {
-    title: "Strategy",
-    desc: "We define direction, structure, and positioning to support every design decision.",
-    tags: "BRAND STRATEGY • MESSAGING • ROADMAP",
+    title: "Strategic Consultation",
+    desc: "In-depth client consultations to understand unique business goals and challenges. Conduct comprehensive market research to identify opportunities and trends.",
+    tags: "CONSULTATION • RESEARCH • STRATEGY",
   },
   {
-    title: "Design",
-    desc: "We craft intuitive interfaces and cohesive visuals that elevate the user experience.",
-    tags: "UI DESIGN • UX DESIGN • VISUAL SYSTEM",
+    title: "AI Driven Execution",
+    desc: "Leverage the latest technologies and tools for efficient work management and project delivery. Optimize websites, social media, paid advertising, and media production using AI insights.",
+    tags: "AI OPTIMIZATION • DELIVERY • EXECUTION",
   },
   {
-    title: "Development",
-    desc: "We build fast, scalable digital products with clean code and seamless performance.",
-    tags: "WEB DEVELOPMENT • INTEGRATIONS",
-  },
-  {
-    title: "Implementation",
-    desc: "We integrate solutions smoothly into workflows to ensure efficiency and adoption.",
-    tags: "SETUP • CONFIGURATION • AUTOMATION",
-  },
-  {
-    title: "Optimization",
-    desc: "We refine, test, and enhance your product to drive ongoing growth and impact.",
-    tags: "TESTING • CONTINUOUS IMPROVEMENT",
+    title: "Continuous Innovation",
+    desc: "Regularly analyze campaign performance using AI-driven real-time insights. Provide detailed reports and strategic recommendations for ongoing improvement.",
+    tags: "ANALYSIS • REPORTING • GROWTH",
   },
 ];
+
 
 /* ---------------- SEMICIRCLE COMPONENT ---------------- */
 function Semicircle({ active }: { active: number }) {
@@ -123,7 +115,7 @@ function Semicircle({ active }: { active: number }) {
             Step
           </span>
 
-          <h3 className="text-[28px] md:text-[52px] font-black text-[#F3F3F3] mb-4 tracking-tight">
+          <h3 className="text-[28px] md:text-[40px] font-black text-[#F3F3F3] mb-4 tracking-tight">
             {step.title}
           </h3>
 

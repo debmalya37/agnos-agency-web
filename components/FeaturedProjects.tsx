@@ -6,40 +6,55 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /* ---------------- DATA ---------------- */
+/* ---------------- DATA ---------------- */
 const PROJECTS = [
   {
     id: 1,
-    title: "Haven Living",
-    industry: "Home & Lifestyle",
-    scope: "Brand Direction + Visual System",
-    description: "Created a warm, lifestyle-driven digital presence that highlights interior quality, storytelling, and modern aesthetics.",
-    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800",
+    title: "Satav Patil Paper Industries",
+    industry: "Manufacturing",
+    scope: "Brand Identity & Logo Design",
+    description:
+      "Brought their eco-friendly and green planet vision of food products into reality with subtle and clear identity for local as well global market.",
+    image: "https://images.unsplash.com/photo-1581093458791-9f3c3900f7d4?q=80&w=800",
   },
   {
     id: 2,
-    title: "Orion Fitness",
-    industry: "Health & Wellness",
-    scope: "Brand Identity + Mobile App UI",
-    description: "Designed a motivating mobile experience with clearer progress tracking, smoother usability, and stronger daily engagement.",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800",
+    title: "Switchsol",
+    industry: "Solar Energy Solutions",
+    scope: "Website Design & Development + Paid Ads",
+    description:
+      "Created a strong digital growth foundation with the help of new business websites & landing pages for qualified lead generation.",
+    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=800",
   },
   {
     id: 3,
-    title: "Apex Finance",
-    industry: "FinTech",
-    scope: "Web Design + Dashboard",
-    description: "Reimagined the user dashboard for a leading fintech platform, focusing on clarity, speed, and trust.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800",
+    title: "Kokanraj",
+    industry: "FMCG E-commerce",
+    scope: "SEO",
+    description:
+      "Drove organic visibility and Google rankings for specific product keywords with the help of search engine marketing.",
+    image: "https://images.unsplash.com/photo-1556742393-d75f468bfcb0?q=80&w=800",
   },
   {
     id: 4,
-    title: "Lumina Art",
-    industry: "Culture & Arts",
-    scope: "Identity + Exhibition Site",
-    description: "A digital gallery experience that brings physical art into the virtual world with immersive interactions.",
-    image: "https://images.unsplash.com/photo-1554232456-8727aae0cfa4?q=80&w=800",
-  }
+    title: "Zero2 Commune",
+    industry: "Offline Retail",
+    scope: "Social Media Marketing",
+    description:
+      "Tested MVP of photoshoot props in Pune market with social media marketing and generated initial demand traction.",
+    image: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=800",
+  },
+  {
+    id: 5,
+    title: "Siddhi Vinayak Properties",
+    industry: "Real Estate Consultant",
+    scope: "Paid Ads",
+    description:
+      "Ran Meta Ads campaigns for hyper-targeted audiences to drive site visits and project bookings for a real estate launch in Pune.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800",
+  },
 ];
+
 
 /* ---------------- FEATURED PROJECT CARD ---------------- */
 function FeaturedCard({ project }: { project: any }) {
@@ -151,8 +166,9 @@ export default function FeaturedProjects() {
             ◁ FEATURED PROJECTS ▷
           </span>
           <h2 className="mt-4 text-[42px] md:text-[56px] leading-tight font-semibold text-[#F3F3F3]">
-            We helped them 3x <br />their revenue
-          </h2>
+  We helped them create positive brand impact <br /> and revenue growth
+</h2>
+
           <p className="mt-3 text-sm text-[#FF6B2C] italic">
             Where ideas take shape
           </p>

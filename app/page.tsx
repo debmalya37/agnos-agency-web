@@ -24,7 +24,7 @@ export default function Home() {
       <ServicesSection />
       <FeaturedProjects />
       <ProcessSection />
-      <GrowthPartner />
+      {/* <GrowthPartner /> */}
       <Testimonials />
       <LatestBlog />
       <FAQSection />

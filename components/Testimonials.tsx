@@ -7,31 +7,51 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 const TESTIMONIALS = [
   {
     id: 1,
-    quote: "Working with this team was effortless that they understood our brand vision & turned it into a digital experience that truly represents who we are.",
-    name: "Olivia Carter",
-    role: "Brand Director",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop",
+    quote:
+      "The lead generation campaign for selling of mangoes during summer season brought us positive ROI on website and mobile application.",
+    name: "Kokanraj",
+    role: "CEO",
+    image: "https://i.pravatar.cc/150?img=12",
   },
   {
     id: 2,
-    quote: "They translated our ideas into a clean, modern digital presence that feels exactly right for our brand. The attention to detail was impressive.",
-    name: "Ethan Miller",
+    quote:
+      "With the help of social media marketing strategy from Aitek Media we were able to get orders from potential customers online.",
+    name: "Zero2 Commune",
     role: "Director",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop",
+    image: "https://i.pravatar.cc/150?img=22",
   },
   {
     id: 3,
-    quote: "The team instantly grasped our strategic goals and delivered a seamless, high-performance site that exceeded every expectation.",
-    name: "Sophia Reyes",
-    role: "Marketing Head",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&h=150&auto=format&fit=crop",
+    quote:
+      "The website project work was completed within the given timeline and as per our custom requirements.",
+    name: "Gaucr Consulting",
+    role: "Co-Founder",
+    image: "https://i.pravatar.cc/150?img=32",
   },
   {
     id: 4,
-    quote: "A true partnership. They didn't just build a website; they built a growth engine that has already increased our conversion rates by 40%.",
-    name: "David Chen",
-    role: "Founder",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop",
+    quote:
+      "Due to the work on Google Business Profile there was an increase in visitors and call enquiries to our JEE Coaching Classes centres.",
+    name: "Takalkar Classes",
+    role: "Business Head",
+    image: "https://i.pravatar.cc/150?img=42",
+  },
+  {
+    id: 5,
+    quote:
+      "We were able to drive site visits and project bookings for a project launch within 45 days of working with the marketing team of Aitek Media.",
+    name: "SiddhiVinayak Properties",
+    role: "Chief Consultant",
+    image: "https://i.pravatar.cc/150?img=52",
+  },
+  {
+    id: 6,
+    quote:
+      "The brand logo and branding work was clearly reflected into our long term vision and eco-friendly food product lines for all the markets.",
+    name: "Satav Patil Industries",
+    role: "Managing Director",
+    image: "https://i.pravatar.cc/150?img=62",
   },
 ];
 
@@ -60,8 +80,6 @@ export default function Testimonials() {
         </div>
 
         {/* Carousel Track */}
-        {/* We use a ref-based scroll container here for the button logic, 
-            but keep overflow-x-auto for native swipe on mobile */}
         <div 
           ref={containerRef}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-10 px-4 md:px-10"
@@ -73,12 +91,10 @@ export default function Testimonials() {
               whileHover={{ y: -5 }}
               className="min-w-[90vw] md:min-w-[650px] bg-white rounded-[2rem] p-8 md:p-12 border border-gray-100 shadow-sm snap-center flex flex-col justify-between"
             >
-              {/* Quote */}
               <p className="text-xl md:text-2xl font-medium text-[#0B1220] leading-relaxed mb-12">
-                {t.quote}
+                “{t.quote}”
               </p>
 
-              {/* Footer: User Info & Ratings */}
               <div className="flex items-center justify-between mt-auto">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
@@ -103,7 +119,6 @@ export default function Testimonials() {
 
         {/* Navigation Controls */}
         <div className="flex justify-center items-center gap-4 mt-8 relative">
-          {/* The subtle background line */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-px bg-gray-200 -z-10" />
           
           <button 
