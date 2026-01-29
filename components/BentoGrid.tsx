@@ -182,7 +182,7 @@ export default function BentoGrid() {
           <div className="md:col-span-5 bg-[#FFB677] rounded-[2rem] p-10 relative overflow-hidden min-h-[380px] flex flex-col items-center text-center">
             <h3 className="text-[28px] font-medium text-[#0B1220] mb-8">Discuss your project</h3>
             <button className="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-medium text-[15px] shadow-xl shadow-orange-900/20 relative z-10 hover:bg-[#e85a1f] transition-all">
-              Schedule a call - 15 mins free
+              Schedule a call - 30 mins free
             </button>
             <p className="text-[13px] text-[#0B1220]/70 mt-4 font-semibold relative z-10">No pressure, just a thoughtful chat.</p>
             <div className="absolute bottom-0 flex gap-2 w-full justify-center px-6">
@@ -197,11 +197,11 @@ export default function BentoGrid() {
           {/* --- Card 4: SEO --- */}
           <div className="md:col-span-7 bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm flex flex-col justify-between">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-medium text-[#0B1220]">How to 3X your business revenue?</h3>
-              <p className="text-[15px] text-gray-400 mt-2 font-medium">Complete end to end digital growth solutions.</p>
+              <h3 className="text-2xl font-medium text-[#0B1220]">How to 3X your business revenue in 90 days?</h3>
+              <p className="text-[15px] text-gray-400 mt-2 font-medium">It’s not about design and development of a website but complete end to end digital growth solutions for your business.</p>
             </div>
             <div className="flex justify-around items-end pb-2">
-              {[ { val: '20%', label: 'Dev' }, { val: '80%', label: 'Marketing', main: true }, { val: '10%', label: 'Auto' } ].map((stat, i) => (
+              {[ { val: '20%', label: 'Web Development' }, { val: '80%', label: 'Marketing', main: true }, { val: '10%', label: 'Automation Systems' } ].map((stat, i) => (
                 <div key={i} className="flex flex-col items-center">
                   <div className={`rounded-full flex items-center justify-center font-black border-[6px] ${stat.main ? 'w-28 h-28 text-2xl border-[#FF6B2C] text-[#0B1220]' : `w-20 h-20 text-lg border-orange-600 text-[#0B1220]/60`}`}>
                     {stat.val}
