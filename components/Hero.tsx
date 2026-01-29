@@ -164,7 +164,7 @@ export default function Hero() {
           transition={{ delay: 0.2 }}
           className="text-[#b8b5b5] text-sm md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
         >
-          We provide complete end to end marketing services right from website development to performance marketing plus personal branding.
+           Our mission is to drive qualified leads and sales to help build a predictable revenue engine with the help of our design, marketing and technology solutions. 
         </motion.p>
 
         {/* Action Buttons */}
@@ -176,14 +176,14 @@ export default function Hero() {
         >
           <div className="relative group">
             <button className="bg-[#FF6B2C] text-white px-10 py-5 rounded-2xl font-bold hover:bg-[#e85a1f] transition-all shadow-xl shadow-orange-900/10 text-lg">
-              Discuss your ideas
+              Book A Strategy Call
             </button>
             <span className="absolute -bottom-10 left-0 w-full text-center text-xs italic text-[#FF6B2C] font-semibold animate-pulse">
               Schedule a free call now ↗
             </span>
           </div>
           <button className="bg-[#010101] text-white px-10 py-5 rounded-2xl font-bold hover:bg-[#1a1a1a] transition-all text-lg shadow-xl shadow-black/10">
-            View services
+            View Solutions
           </button>
         </motion.div>
       </div>
@@ -191,7 +191,7 @@ export default function Hero() {
       {/* --- Footer Logos --- */}
       <div className="mt-32 w-full max-w-full z-10 border-t border-dashed border-gray-700 pt-12">
         <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-bold">
-          TRUSTED BY 100+ GLOBAL LEADERS
+          Trusted by 25+ Global Brands
         </p>
         <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 grayscale opacity-40 hover:opacity-100 transition-opacity">
            <span className="text-2xl font-black italic text-[#F3F3F3]">Nexter</span>

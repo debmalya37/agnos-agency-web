@@ -6,30 +6,37 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const FAQ_DATA = [
   {
-    question: "How long does a typical project take?",
-    answer: "Most branding and web projects take between 4-8 weeks, depending on the complexity and scope. We provide a detailed timeline during our initial discovery call."
+    question: "How do you price your work? Are you a fixed-cost or retainer-based agency?",
+    answer:
+      "We don’t sell hours or random packages. We scope work based on the growth system your business needs — foundation, demand, or scale. Some clients start with a one-time build, others move into monthly growth retainers. You’ll always get a clear milestone-based proposal before anything begins."
   },
   {
-    question: "Do you work with startups or only large brands?",
-    answer: "We work with ambitious companies of all sizes. From early-stage startups looking for their first identity to established enterprises needing a complete digital overhaul."
+    question: "How long does it usually take to see results?",
+    answer:
+      "Timelines depend on your starting point. Most businesses see their Growth Foundation go live within a few weeks, and measurable signals (leads, engagement, pipeline movement) within the first 30–60 days. Revenue impact depends on your market, sales process, and demand engine."
   },
   {
-    question: "What’s included in your design packages?",
-    answer: "Our packages are tailored to your needs but typically include brand strategy, visual identity (logo, color, type), UI/UX design, and development handoff."
+    question: "What makes you different from a typical marketing or IT agency?",
+    answer:
+      "We don’t operate in silos like a separate website team and ads team. We design one connected system where your website, campaigns, tracking, and follow-ups work together — so you can see what actually drives growth instead of guessing."
   },
   {
-    question: "Do you provide development services too?",
-    answer: "Yes! We specialize in Next.js, Framer, and Webflow development. We build pixel-perfect, SEO-optimized websites that scale with your business."
+    question: "Do you work with all industries and business sizes?",
+    answer:
+      "We work best with growth-stage businesses that already have traction or are actively investing in digital channels. If you’re still validating an idea or looking for the cheapest execution, we’re probably not the right fit."
   },
   {
-    question: "How do we start a project?",
-    answer: "It starts with a discovery call where we learn about your goals. If we're a good fit, we'll send a proposal and roadmap to get things moving immediately."
+    question: "How do you track performance and success?",
+    answer:
+      "Every engagement starts with clear success metrics and visibility layers — lead flow, conversion points, and pipeline or revenue signals. You’ll always know what’s working, what’s not, and where to focus next."
   },
   {
-    question: "Can you help with ongoing updates after launch?",
-    answer: "Absolutely. We offer retainer packages for ongoing design support, development maintenance, and performance optimization post-launch."
+    question: "What happens after the initial project is completed?",
+    answer:
+      "You’re not left with a handover and a goodbye. After launch, we provide a support and optimization phase, and for businesses ready to scale, we offer ongoing growth systems covering demand generation, automation, and performance optimization."
   },
 ];
+
 
 export default function FAQSection() {
   // Track which FAQ is open (null = all closed)

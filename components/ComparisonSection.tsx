@@ -6,18 +6,20 @@ import { ChevronRight, Star } from "lucide-react";
 
 const otherAgencies = [
   "Slow, unclear timelines",
-  "Extra charges for changes",
   "No clear process",
-  "Designs break in dev",
-  "Complex, hard builds",
+  "Focusing only on lead generation and vanity metrics",
+  "Team of generalists working on projects",
+  "No proper training & support post project handover is done.",
+  "Applying the same copy paste template & strategies to each business with no data analysis.",
 ];
 
 const agnosBenefits = [
-  "Clear weekly updates",
-  "Transparent pricing",
-  "Documented workflow",
-  "Design–dev alignment",
-  "Clean, scalable builds",
+  "Clear daily communications with weekly updates",
+  "Documented standard operating procedure & workflows aligned with clear milestone",
+  "Clear focus on brand building and positive revenue growth ",
+  "Subject matter professionals along with project heads working alongside clients",
+  "Dedicated project handover training for further application of work done.",
+  "Blending creativity with latest technologies for a truly innovative approach to create bespoke solutions tailored to each business requirement.",
 ];
 
 export default function ComparisonSection() {
@@ -28,8 +30,8 @@ export default function ComparisonSection() {
         {/* Header Section */}
         <div className="text-center max-w-5xl mb-12">
           <h2 className="text-3xl md:text-3xl font-medium text-[#F3F3F3] leading-[1.15] mb-8">
-            We know choosing the right agency <br />
-            is hard because few <span className="text-[#FF6B2C]">truly deliver</span>.
+            We know choosing the right partner <br />
+            is hard because few <span className="text-[#FF6B2C]">truly deliver and create positive impact. </span>.
           </h2>
           
           {/* Sub-header Pill */}
@@ -53,7 +55,7 @@ export default function ComparisonSection() {
           
           {/* Card: Other Agencies */}
           <div className="w-full md:w-[480px] bg-white rounded-[2rem] p-10 md:pr-24 shadow-sm border border-gray-100 z-10 relative">
-            <h3 className="text-2xl font-bold text-[#111] mb-10">Other agencies</h3>
+            <h3 className="text-2xl font-bold text-[#111] mb-10">Other Marketing Companies</h3>
             <ul className="space-y-0">
               {otherAgencies.map((item, idx) => (
                 <li key={idx} className={`flex items-center gap-4 py-5 text-[#999] font-medium ${idx !== otherAgencies.length - 1 ? 'border-b border-dotted border-gray-200' : ''}`}>
@@ -86,7 +88,7 @@ export default function ComparisonSection() {
         {/* Footer/Social Proof */}
         <div className="mt-16 w-full max-w-4xl flex flex-col md:flex-row items-center justify-between gap-8 px-4">
           <button className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-[#e85a1f] transition-all shadow-xl shadow-orange-100">
-            Read our story
+            Know our story
           </button>
 
           <div className="flex items-center gap-6">
@@ -114,7 +116,7 @@ export default function ComparisonSection() {
                 <span className="text-sm font-black ml-2 text-[#111]">4.5/5</span>
               </div>
               <p className="text-xs text-gray-500 font-medium">
-                Trusted by <span className="text-[#FF6B2C] font-bold text-sm">54+</span> visionary brands
+                Trusted by <span className="text-[#FF6B2C] font-bold text-sm">25+</span> brands
               </p>
             </div>
           </div>

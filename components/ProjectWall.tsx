@@ -55,7 +55,7 @@ export default function ProjectWall() {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-6 font-poppins">
-            100+ Premium <br /> Designs
+            Worked with 30+ Precious Clients
           </h2>
 
           <button className="bg-orange-500 text-white px-4 py-3 md:px-4 md:py-2 rounded-full font-light text-sm md:text-lg hover:bg-orange-600 transition-all shadow-xl shadow-orange-100">
