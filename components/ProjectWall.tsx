@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const projectImages = [
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80",
-  "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80",
+  "https://media.istockphoto.com/id/1409958226/photo/paper-production-machine-in-wastepaper-recycling-factory-paper-and-pulp-mill.jpg?s=612x612&w=0&k=20&c=CeyKPRWuzUHFxjj4hBm6ncXfHEEFH4es8-5ZMad8jbw=",
+  "https://media.istockphoto.com/id/1428709516/photo/shopping-online-woman-hand-online-shopping-on-laptop-computer-with-virtual-graphic-icon.jpg?s=612x612&w=0&k=20&c=ROAncmFL4lbSQdU4VOhyXu-43ngzfEqHE5ZZAw5FtYk=",
   "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&q=80",
-  "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=500&q=80",
-  "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=500&q=80",
+  "https://media.istockphoto.com/id/2154752387/photo/real-estate-concept-business-home-insurance-and-real-estate-protection-real-estate-investment.jpg?s=612x612&w=0&k=20&c=r6Tmn31ZHHr-8ZuWfZaYIYdqM9nD4dMc6NfDXxwsZeo=",
+  "https://media.istockphoto.com/id/1556119299/photo/empty-aisles-at-a-supermarket.jpg?s=612x612&w=0&k=20&c=jsJAvDjAY2DAMyWE2NMNcr4IguRZjWb_zcspLwMQ6ko=",
 ];
 
 const MarqueeRow = ({ images, direction = "left" }: { images: string[], direction?: "left" | "right" }) => {
