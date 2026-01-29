@@ -165,7 +165,7 @@ export default function FeaturedProjects() {
           <span className="text-[11px] tracking-[0.35em] uppercase text-gray-400 font-semibold">
             ◁ FEATURED PROJECTS ▷
           </span>
-          <h2 className="mt-4 text-[42px] md:text-[56px] leading-tight font-semibold text-[#F3F3F3]">
+          <h2 className="mt-4 text-[42px] md:text-[45px] leading-tight font-semibold text-[#F3F3F3]">
   We helped them create positive brand impact <br /> and revenue growth
 </h2>
 

@@ -2,26 +2,29 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Paintbrush, Layout, Code2 } from "lucide-react";
+import { Paintbrush, Layout, Code2, Cpu, Megaphone } from "lucide-react";
 
 const services = [
   {
-    title: "Branding & Identity",
-    description: "From concept to prototype, we create user-centered interfaces that balance beauty with performance, ensuring every interaction feels effortless.",
+    title: "Design",
+    description:
+      "We craft high-impact brand and digital design that communicates clearly, feels modern, and builds trust across every customer touchpoint.",
     icon: <Paintbrush className="text-[#FF6B2C]" size={24} />,
-    tags: ["IDENTITY", "POSITIONING", "VOICE"],
+    tags: ["BRANDING", "UI/UX", "VISUAL SYSTEM"],
   },
   {
-    title: "UI/UX Design",
-    description: "Crafting intuitive, user-centered interfaces that blend clarity, beauty, and effortless interaction.",
-    icon: <Layout className="text-[#FF6B2C]" size={24} />,
-    tags: ["WEB", "PRODUCT", "APP"],
+    title: "Marketing",
+    description:
+      "We build demand engines that drive measurable growth using SEO, paid ads, social media strategy, and high-performing video production.",
+    icon: <Megaphone className="text-[#FF6B2C]" size={24} />,
+    tags: ["SEO", "PAID ADS", "SOCIAL MEDIA", "VIDEO"],
   },
   {
-    title: "Web Development",
-    description: "We build fast, scalable, and fully responsive websites that perform beautifully — whether it’s a simple portfolio or a full digital platform.",
-    icon: <Code2 className="text-[#FF6B2C]" size={24} />,
-    tags: ["FRAMER", "FRONT-END", "CMS"],
+    title: "Technology",
+    description:
+      "We develop scalable digital infrastructure including websites, apps, SaaS platforms, and AI-powered tools built for long-term growth.",
+    icon: <Cpu className="text-[#FF6B2C]" size={24} />,
+    tags: ["WEBSITES", "APPS", "AI TOOLS", "SAAS"],
   },
 ];
 

@@ -109,12 +109,17 @@ export default function Footer() {
           
           {/* Column 1: Brand & Newsletter (4 cols) */}
           <div className="lg:col-span-4 space-y-8">
-            <div className="flex items-center gap-2">
-               <div className="w-8 h-8 bg-[#FF6B2C] rounded-lg rotate-45 flex items-center justify-center">
-                  <div className="w-3 h-3 bg-white rounded-full" />
-               </div>
-               <span className="text-2xl font-black text-[#0B1220] tracking-tight">Aitek</span>
-            </div>
+            <div className="flex items-center gap-3">
+  <img
+    src="/assets/logo.png"
+    alt="Aitek logo"
+    className="w-10 h-10 object-contain"
+  />
+  <span className="text-2xl font-black text-[#0B1220] tracking-tight">
+    Aitek
+  </span>
+</div>
+
             
             <p className="text-gray-500 font-medium leading-relaxed max-w-xs">
               Crafting digital solutions that move your business forward.

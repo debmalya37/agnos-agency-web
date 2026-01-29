@@ -193,12 +193,17 @@ export default function Hero() {
         <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-bold">
           Trusted by 25+ Global Brands
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 grayscale opacity-40 hover:opacity-100 transition-opacity">
-           <span className="text-2xl font-black italic text-[#F3F3F3]">Nexter</span>
-           <span className="text-3xl font-light tracking-tighter text-[#F3F3F3]">oslo.</span>
-           <span className="text-2xl font-bold tracking-[0.2em] uppercase text-[#F3F3F3]">MONVE</span>
-           <span className="text-2xl font-extrabold tracking-tight text-[#F3F3F3]">next</span>
-        </div>
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14 grayscale opacity-60 hover:opacity-100 transition-opacity">
+  {[...Array(11)].map((_, i) => (
+    <img
+      key={i}
+      src={`/assets/clients/${i + 1}.png`}
+      alt={`Client ${i + 1}`}
+      className="h-10 md:h-14 w-auto object-contain transition-all duration-300 hover:scale-110"
+    />
+  ))}
+</div>
+
       </div>
     </section>
   );
