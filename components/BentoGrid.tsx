@@ -127,7 +127,7 @@ export default function BentoGrid() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent" />
           <div className="absolute bottom-6 left-6">
             <h4 className="text-white font-bold text-lg leading-tight">Dennis Barrett</h4>
-            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">CEO - AGNOS</p>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">CEO - Aitek</p>
           </div>
         </div>
 

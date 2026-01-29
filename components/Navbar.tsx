@@ -13,7 +13,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <div className="w-6 h-6 bg-orange-500 rounded-sm rotate-45" />
-          <span className="text-xl font-bold tracking-tight">Agnos</span>
+          <span className="text-xl font-bold tracking-tight">Aitek</span>
         </Link>
 
         {/* Desktop Menu */}
