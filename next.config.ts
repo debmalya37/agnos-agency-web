@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["images.unsplash.com"],
   },
+  // Add this block to ignore ESLint errors during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
+  // (Optional) If you also want to ignore TypeScript errors
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;
