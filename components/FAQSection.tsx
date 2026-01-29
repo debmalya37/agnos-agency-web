@@ -51,7 +51,7 @@ export default function FAQSection() {
       
       {/* Top Label */}
       <div className="w-full flex justify-center mb-4">
-        <div className="inline-flex items-center gap-2 text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase">
+        <div className="inline-flex items-center gap-2 text-[10px] font-medium text-gray-400 tracking-[0.3em] uppercase">
           <span>{">"}</span> GOT QUESTIONS <span>{"<"}</span>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function FAQSection() {
         
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black text-[#F3F3F3] tracking-tight relative inline-block">
+          <h2 className="text-4xl md:text-6xl font-medium text-[#F3F3F3] tracking-tight relative inline-block">
             We’ve got answers
             
             {/* Hand-drawn Annotation */}
@@ -91,7 +91,7 @@ export default function FAQSection() {
                     onClick={() => toggleFAQ(index)}
                     className="w-full p-6 md:px-8 md:py-6 flex items-center justify-between text-left group hover:bg-gray-50 transition-colors"
                   >
-                    <span className={`font-bold text-base md:text-lg pr-4 transition-colors ${isOpen ? 'text-[#FF6B2C]' : 'text-[#0B1220]'}`}>
+                    <span className={`font-medium text-base md:text-lg pr-4 transition-colors ${isOpen ? 'text-[#FF6B2C]' : 'text-[#0B1220]'}`}>
                       {index + 1}. {item.question}
                     </span>
                     
@@ -143,9 +143,9 @@ export default function FAQSection() {
             ))}
           </div>
           
-          <h4 className="text-[#F3F3F3] font-bold text-lg mb-4">Still have questions?</h4>
+          <h4 className="text-[#F3F3F3] font-medium text-lg mb-4">Still have questions?</h4>
           
-          <button className="bg-[#FF6B2C] text-white px-8 py-3 rounded-xl font-bold text-sm shadow-xl shadow-orange-900/10 hover:bg-[#e85a1f] hover:-translate-y-1 transition-all">
+          <button className="bg-[#FF6B2C] text-white px-8 py-3 rounded-xl font-medium text-sm shadow-xl shadow-orange-900/10 hover:bg-[#e85a1f] hover:-translate-y-1 transition-all">
             Let's talk
           </button>
         </div>

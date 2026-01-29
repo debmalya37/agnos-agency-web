@@ -110,12 +110,12 @@ function Semicircle({ active }: { active: number }) {
           className="absolute inset-0 flex flex-col items-center pt-[140px] md:pt-[180px] text-center px-6 pointer-events-none"
 
         >
-          <span className="text-[11px] tracking-widest text-gray-400 uppercase font-bold bg-[#F6F4F1] px-3 py-1 rounded-md mb-6">
+          <span className="text-[11px] tracking-widest text-gray-400 uppercase font-medium bg-[#F6F4F1] px-3 py-1 rounded-md mb-6">
 
-            Step
+            Process
           </span>
 
-          <h3 className="text-[28px] md:text-[40px] font-black text-[#F3F3F3] mb-4 tracking-tight">
+          <h3 className="text-[28px] md:text-[40px] font-medium text-[#F3F3F3] mb-4 tracking-tight">
             {step.title}
           </h3>
 
@@ -123,11 +123,11 @@ function Semicircle({ active }: { active: number }) {
             {step.desc}
           </p>
 
-          <p className="text-[11px] font-bold tracking-[0.2em] text-gray-400 mb-10 uppercase">
+          <p className="text-[11px] font-medium tracking-[0.2em] text-gray-400 mb-10 uppercase">
             {step.tags}
           </p>
 
-          <button className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-bold text-sm shadow-xl shadow-orange-200 pointer-events-auto hover:bg-[#e85a1f] transition-all transform hover:scale-105">
+          <button className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-sm shadow-xl shadow-orange-200 pointer-events-auto hover:bg-[#e85a1f] transition-all transform hover:scale-105">
             Start your project
           </button>
 
@@ -176,10 +176,10 @@ export default function ProcessSection() {
         
         {/* HEADER */}
         <div className="absolute top-16 text-center w-full px-4">
-          <span className="text-[10px] tracking-[0.4em] uppercase text-gray-400 font-black">
+          <span className="text-[10px] tracking-[0.4em] uppercase text-gray-400 font-medium">
             PROCESS
           </span>
-          <h2 className="mt-4 text-4xl md:text-6xl font-black text-[#F3F3F3] tracking-tight">
+          <h2 className="mt-4 text-4xl md:text-6xl font-medium text-[#F3F3F3] tracking-tight">
             A collaborative approach
           </h2>
         </div>

@@ -35,7 +35,7 @@ export default function LatestBlog() {
       <div className="max-w-[1200px] mx-auto">
         
         {/* Section Header */}
-        <h2 className="text-4xl md:text-5xl font-black text-[#F3F3F3] text-center mb-12 tracking-tight">
+        <h2 className="text-4xl md:text-5xl font-medium text-[#F3F3F3] text-center mb-12 tracking-tight">
           Latest blog
         </h2>
 
@@ -49,10 +49,10 @@ export default function LatestBlog() {
               {/* Content Side */}
               <div className="flex-1 flex flex-col justify-between">
                 <div>
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-4 block">
+                  <span className="text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase mb-4 block">
                     {BLOG_POSTS[0].category}
                   </span>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#0B1220] leading-[1.1] mb-4 group-hover:text-[#FF6B2C] transition-colors cursor-pointer">
+                  <h3 className="text-3xl md:text-4xl font-medium text-[#0B1220] leading-[1.1] mb-4 group-hover:text-[#FF6B2C] transition-colors cursor-pointer">
                     {BLOG_POSTS[0].title}
                   </h3>
                   <p className="text-sm text-gray-400 font-medium mt-2">
@@ -69,7 +69,7 @@ export default function LatestBlog() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <span className="text-sm font-bold text-[#0B1220]">
+                  <span className="text-sm font-medium text-[#0B1220]">
                     {BLOG_POSTS[0].author}
                   </span>
                 </div>
@@ -93,10 +93,10 @@ export default function LatestBlog() {
             <div className="flex-1 bg-white rounded-[2rem] p-8 flex justify-between items-start gap-4 group cursor-pointer hover:shadow-md transition-shadow">
               <div className="flex flex-col justify-between h-full">
                 <div>
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-3 block">
+                  <span className="text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase mb-3 block">
                     {BLOG_POSTS[1].category}
                   </span>
-                  <h3 className="text-xl md:text-2xl font-bold text-[#0B1220] leading-tight mb-4 group-hover:text-[#FF6B2C] transition-colors">
+                  <h3 className="text-xl md:text-2xl font-medium text-[#0B1220] leading-tight mb-4 group-hover:text-[#FF6B2C] transition-colors">
                     {BLOG_POSTS[1].title}
                   </h3>
                 </div>
@@ -117,10 +117,10 @@ export default function LatestBlog() {
             <div className="flex-1 bg-white rounded-[2rem] p-8 flex justify-between items-start gap-4 group cursor-pointer hover:shadow-md transition-shadow">
               <div className="flex flex-col justify-between h-full">
                 <div>
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-3 block">
+                  <span className="text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase mb-3 block">
                     {BLOG_POSTS[2].category}
                   </span>
-                  <h3 className="text-xl md:text-2xl font-bold text-[#0B1220] leading-tight mb-4 group-hover:text-[#FF6B2C] transition-colors">
+                  <h3 className="text-xl md:text-2xl font-medium text-[#0B1220] leading-tight mb-4 group-hover:text-[#FF6B2C] transition-colors">
                     {BLOG_POSTS[2].title}
                   </h3>
                 </div>

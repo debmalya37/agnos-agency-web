@@ -10,7 +10,7 @@ export default function GrowthPartner() {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-[10px] font-bold tracking-[0.3em] text-gray-400 uppercase">
+          <span className="text-[10px] font-medium tracking-[0.3em] text-gray-400 uppercase">
             Work With
           </span>
           <h2 className="mt-4 text-3xl md:text-4xl font-medium text-[#F3F3F3] leading-[1.1] tracking-tight">
@@ -32,14 +32,14 @@ export default function GrowthPartner() {
               {/* Inner White Card */}
               <div className="bg-white rounded-2xl p-6 mb-8 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
+                  <span className="text-[10px] font-medium tracking-[0.2em] text-gray-500 uppercase">
                     We work as a growth partner
                   </span>
-                  <span className="bg-[#FF6B2C] text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="bg-[#FF6B2C] text-white text-[9px] font-medium px-3 py-1 rounded-full uppercase tracking-wider">
                     Popular
                   </span>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-[#555] mt-4 leading-tight">
+                <h3 className="text-lg md:text-xl font-medium text-[#555] mt-4 leading-tight">
                   Best for growing brands looking <br />
                   to scale their digital presence.
                 </h3>
@@ -69,7 +69,7 @@ export default function GrowthPartner() {
               </ul>
 
               {/* CTA Button */}
-              <button className="bg-[#0B1220] text-white px-8 py-4 rounded-xl font-bold text-sm hover:bg-black transition-all shadow-lg relative z-10 w-full md:w-auto">
+              <button className="bg-[#0B1220] text-white px-8 py-4 rounded-xl font-medium text-sm hover:bg-black transition-all shadow-lg relative z-10 w-full md:w-auto">
                 Start your project
               </button>
 
@@ -87,7 +87,7 @@ export default function GrowthPartner() {
           <p className="text-gray-500 font-medium text-sm md:text-base">
             For agencies and enterprises needing <br /> custom strategy and execution.
           </p>
-          <a href="#" className="inline-flex items-center gap-1 text-[#FF6B2C] font-bold text-sm mt-2 hover:underline decoration-2 underline-offset-4">
+          <a href="#" className="inline-flex items-center gap-1 text-[#FF6B2C] font-medium text-sm mt-2 hover:underline decoration-2 underline-offset-4">
             Contact us <span>{">"}</span>
           </a>
         </div>

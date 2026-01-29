@@ -22,7 +22,7 @@ const SideOrbit = ({
     bg?: string;
   }[];
 }) => {
-  const gap = 200;      // ✅ larger, even gap
+  const gap = 130;      // ✅ larger, even gap
   const stroke = 5;   // ✅ thicker stroke
 
   return (
@@ -32,7 +32,8 @@ const SideOrbit = ({
         width: size,
         height: size,
         bottom: yOffset,
-        [position]: `-${size * 0.72}px`,
+        [position]: `-${size * 0.78}px`,
+
       }}
       animate={{
         rotate: position === "left" ? 360 : -360,
@@ -103,16 +104,16 @@ const SideOrbit = ({
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0B1220] pt-20 px-4">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#000000] pt-20 px-4">
       
       {/* --- Side Arcs with Orbiting Icons --- */}
       <div className="absolute inset-0 z-0 overflow-hidden">
        {/* LEFT SIDE */}
 <SideOrbit
   position="left"
-  size={1700}
-  yOffset={-420}
-  duration={30}
+  size={1500}
+  yOffset={-320}
+  duration={20}
   icons={[
     { Icon: Palette, angle: 120 },
     { Icon: Code, angle: 155 },
@@ -124,8 +125,8 @@ export default function Hero() {
 {/* RIGHT SIDE */}
 <SideOrbit
   position="right"
-  size={1700}
-  yOffset={-460}
+  size={1500}
+  yOffset={-320}
   duration={20}
   icons={[
     { Icon: Rocket, angle: 310, bg: "bg-black" },
@@ -138,11 +139,11 @@ export default function Hero() {
       </div>
 
       {/* --- Hero Content --- */}
-      <div className="relative z-10 text-center max-w-3xl mx-auto mt-10">
+      <div className="relative z-10 text-center max-w-2xl mx-auto mt-10">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-gray-100 mb-8 bg-white/40 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-300 text-[10px] md:text-xs font-medium uppercase tracking-[0.3em] text-gray-100 mb-8 bg-white/40 backdrop-blur-sm"
         >
           <span>{">"}</span> DIGITAL AGENCY <span>{"<"}</span>
         </motion.div>
@@ -151,11 +152,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-3xl md:text-[50px] font-black text-[#F3F3F3] leading-[0.9] tracking-tighter mb-8"
+          className="text-3xl md:text-[50px] font-medium text-[#F3F3F3] leading-[1.0] tracking-tighter mb-8"
         >
           We help businesses make<br />
           <span className="text-[#F3F3F3]">3X more revenue </span>
-          <span className="text-[#FF6B2C]">within 3 months</span>
+          <span className="text-[#FF6B2C]">within <br />3 months</span>
         </motion.h1>
 
         <motion.p 
@@ -175,14 +176,14 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <div className="relative group">
-            <button className="bg-[#FF6B2C] text-white px-10 py-5 rounded-2xl font-bold hover:bg-[#e85a1f] transition-all shadow-xl shadow-orange-900/10 text-lg">
+            <button className="bg-[#FF6B2C] text-white px-10 py-5 rounded-2xl font-medium hover:bg-[#e85a1f] transition-all shadow-xl shadow-orange-900/10 text-lg">
               Book A Strategy Call
             </button>
             <span className="absolute -bottom-10 left-0 w-full text-center text-xs italic text-[#FF6B2C] font-semibold animate-pulse">
               Schedule a free call now ↗
             </span>
           </div>
-          <button className="bg-[#010101] text-white px-10 py-5 rounded-2xl font-bold hover:bg-[#1a1a1a] transition-all text-lg shadow-xl shadow-black/10">
+          <button className="bg-[#afafaf] text-black px-10 py-5 rounded-2xl font-medium hover:bg-[#1a1a1a] transition-all text-lg shadow-xl shadow-black/10">
             View Solutions
           </button>
         </motion.div>
@@ -190,7 +191,7 @@ export default function Hero() {
 
       {/* --- Footer Logos --- */}
       <div className="mt-32 w-full max-w-full z-10 border-t border-dashed border-gray-700 pt-12">
-        <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-bold">
+        <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-medium">
           Trusted by 25+ Global Brands
         </p>
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14 grayscale opacity-60 hover:opacity-100 transition-opacity">

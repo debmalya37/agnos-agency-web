@@ -15,7 +15,7 @@ const PROJECTS = [
     scope: "Brand Identity & Logo Design",
     description:
       "Brought their eco-friendly and green planet vision of food products into reality with subtle and clear identity for local as well global market.",
-    image: "https://images.unsplash.com/photo-1581093458791-9f3c3900f7d4?q=80&w=800",
+    image: "https://media.istockphoto.com/id/157523556/photo/row-of-paper-rolls-for-print-in-a-printing-factory.jpg?s=612x612&w=0&k=20&c=DetK_aNsHLDSKwgWiNvXrwGdLBOaBxybdPetdplQJD8=",
   },
   {
     id: 2,

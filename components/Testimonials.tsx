@@ -71,10 +71,10 @@ export default function Testimonials() {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase mb-4">
+          <div className="inline-flex items-center gap-2 text-[10px] font-medium text-gray-400 tracking-[0.3em] uppercase mb-4">
             <span>{">"}</span> TESTIMONIALS <span>{"<"}</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-[#F3F3F3] tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-medium text-[#F3F3F3] tracking-tight">
             What clients say
           </h2>
         </div>
@@ -101,7 +101,7 @@ export default function Testimonials() {
                     <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex flex-col md:flex-row md:items-center md:gap-2">
-                    <span className="text-sm font-bold text-[#0B1220]">{t.name}</span>
+                    <span className="text-sm font-medium text-[#0B1220]">{t.name}</span>
                     <span className="hidden md:block text-gray-300">—</span>
                     <span className="text-sm font-medium text-gray-400">{t.role}</span>
                   </div>

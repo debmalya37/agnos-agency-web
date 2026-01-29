@@ -55,13 +55,13 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left Content */}
             <div className="text-left">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-orange-900/60 uppercase mb-4 block">
+              <span className="text-[10px] font-medium tracking-[0.2em] text-orange-900/60 uppercase mb-4 block">
                 Let's build something great
               </span>
-              <h2 className="text-4xl md:text-5xl font-black text-[#0B1220] leading-[1.1] mb-8 tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-medium text-[#0B1220] leading-[1.1] mb-8 tracking-tight">
                 Ready to start <br /> your next project?
               </h2>
-              <button className="bg-[#0B1220] text-white px-8 py-4 rounded-xl font-bold text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
+              <button className="bg-[#0B1220] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
                 Get started
               </button>
             </div>
@@ -73,7 +73,7 @@ export default function Footer() {
                  <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-2">
                        <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
-                       <span className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Available for project</span>
+                       <span className="text-[10px] font-medium text-gray-400 tracking-wider uppercase">Available for project</span>
                     </div>
                  </div>
                  
@@ -81,21 +81,21 @@ export default function Footer() {
                  <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center -space-x-3">
                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" className="w-12 h-12 rounded-full border-2 border-white object-cover" />
-                       <div className="w-12 h-12 rounded-full bg-[#0B1220] border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                       <div className="w-12 h-12 rounded-full bg-[#0B1220] border-2 border-white flex items-center justify-center text-white text-xs font-medium">
                           You
                        </div>
                     </div>
                  </div>
 
-                 <h3 className="text-lg font-bold text-[#0B1220]">Quick 15-minute call</h3>
+                 <h3 className="text-lg font-medium text-[#0B1220]">Quick 15-minute call</h3>
                  <p className="text-sm text-gray-500 font-medium mb-6">Pick a time that works for you.</p>
 
-                 <button className="w-full bg-[#FF6B2C] text-white py-3 rounded-xl font-bold text-sm hover:bg-[#e85a1f] transition-all">
+                 <button className="w-full bg-[#FF6B2C] text-white py-3 rounded-xl font-medium text-sm hover:bg-[#e85a1f] transition-all">
                     Book a free call
                  </button>
 
                  {/* Floating Cursor Tag */}
-                 <div className="absolute -right-4 top-1/2 bg-[#0B1220] text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg flex items-center gap-1 -rotate-6">
+                 <div className="absolute -right-4 top-1/2 bg-[#0B1220] text-white text-[10px] font-medium px-2 py-1 rounded shadow-lg flex items-center gap-1 -rotate-6">
                     <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[6px] border-b-white rotate-[-45deg] mb-3" />
                     AMANDA
                  </div>
@@ -115,7 +115,7 @@ export default function Footer() {
     alt="Aitek logo"
     className="w-10 h-10 object-contain"
   />
-  <span className="text-2xl font-black text-[#0B1220] tracking-tight">
+  <span className="text-2xl font-medium text-[#0B1220] tracking-tight">
     Aitek
   </span>
 </div>
@@ -126,7 +126,7 @@ export default function Footer() {
             </p>
 
             <div className="pt-4">
-              <h4 className="text-[#0B1220] font-bold mb-4">Updates that keep you ahead</h4>
+              <h4 className="text-[#0B1220] font-medium mb-4">Updates that keep you ahead</h4>
               <div className="flex gap-2 bg-white p-1.5 rounded-2xl border border-gray-200 shadow-sm max-w-xs focus-within:ring-2 ring-[#FF6B2C] transition-all">
                  <input 
                     type="email" 
@@ -142,11 +142,11 @@ export default function Footer() {
 
           {/* Column 2: Quick Links (4 cols) */}
           <div className="lg:col-span-4">
-            <h4 className="text-[11px] font-bold text-gray-400 tracking-[0.2em] uppercase mb-8">
+            <h4 className="text-[11px] font-medium text-gray-400 tracking-[0.2em] uppercase mb-8">
               Quick Links
             </h4>
             <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-               <a href="#" className="text-[#FF6B2C] font-bold text-sm">Home</a>
+               <a href="#" className="text-[#FF6B2C] font-medium text-sm">Home</a>
                <a href="#" className="text-[#0B1220] font-medium text-sm hover:text-[#FF6B2C] transition-colors">Contact us</a>
                <a href="#" className="text-[#0B1220] font-medium text-sm hover:text-[#FF6B2C] transition-colors">About us</a>
                <a href="#" className="text-[#0B1220] font-medium text-sm hover:text-[#FF6B2C] transition-colors">Privacy Policy</a>
@@ -159,18 +159,18 @@ export default function Footer() {
           {/* Column 3: Contact & Social (4 cols) */}
           <div className="lg:col-span-4 space-y-8">
              <div>
-                <h4 className="text-[11px] font-bold text-gray-400 tracking-[0.2em] uppercase mb-8">
+                <h4 className="text-[11px] font-medium text-gray-400 tracking-[0.2em] uppercase mb-8">
                   Get in touch
                 </h4>
                 <div className="space-y-4">
-                   <p className="text-[#0B1220] font-bold text-lg">+1 (234) 567-89-01</p>
+                   <p className="text-[#0B1220] font-medium text-lg">+1 (234) 567-89-01</p>
                    <p className="text-[#0B1220] font-medium">support@example.com</p>
                    <p className="text-gray-500 font-medium">1238 Echo Ridge Blvd, Suite 400 <br /> San Francisco, CA 94103, US</p>
                 </div>
              </div>
 
              <div>
-                <h4 className="text-[11px] font-bold text-gray-400 tracking-[0.2em] uppercase mb-4">
+                <h4 className="text-[11px] font-medium text-gray-400 tracking-[0.2em] uppercase mb-4">
                   Follow us on
                 </h4>
                 <div className="flex gap-3">
@@ -186,11 +186,11 @@ export default function Footer() {
         </div>
 
         {/* --- Copyright Bar --- */}
-        <div className="border-t border-gray-200 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-gray-500">
+        <div className="border-t border-gray-200 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-500">
            <p>© 2026 Aitek. All rights reserved</p>
            <div className="flex items-center gap-1">
               <span>Developed by <span className="text-[#FF6B2C]">ThinQiT</span>,</span>
-              <span>Powered by <span className="text-[#FF6B2C]">Nextjs</span></span>
+              {/* <span>Powered by <span className="text-[#FF6B2C]">Nextjs</span></span> */}
            </div>
         </div>
 

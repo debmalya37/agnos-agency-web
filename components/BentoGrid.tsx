@@ -106,13 +106,13 @@ export default function BentoGrid() {
           {/* --- Card 1 --- */}
           <div className="md:col-span-3 bg-white rounded-[2rem] p-8 flex flex-col items-center border border-gray-100 shadow-sm h-full">
             <div className="text-center">
-              <h3 className="font-bold text-xl text-[#0B1220]">CSAT</h3>
+              <h3 className="font-medium text-xl text-[#0B1220]">CSAT</h3>
               <p className="text-[13px] text-gray-500 mt-2 leading-tight">
                 Measures and improves <br /> client satisfaction.
               </p>
             </div>
             <div className="mt-10 flex flex-col items-center">
-              <span className="text-[10px] font-bold text-[#FF6B2C] tracking-[0.2em] uppercase mb-4">
+              <span className="text-[10px] font-medium text-[#FF6B2C] tracking-[0.2em] uppercase mb-4">
                 Excellent
               </span>
               <div className="flex gap-2.5">
@@ -134,7 +134,7 @@ export default function BentoGrid() {
                 alt="Strategy"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white">
+              <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-white">
                 {strategyIndex + 1} / {STRATEGY_SLIDES.length}
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function BentoGrid() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h3 className="text-2xl font-extrabold text-[#0B1220] mb-3 leading-tight">
+                  <h3 className="text-2xl font-medium text-[#0B1220] mb-3 leading-tight">
                     {STRATEGY_SLIDES[strategyIndex].title}
                   </h3>
                   <p className="text-[14px] text-[#0B1220] font-semibold leading-snug mb-2">
@@ -180,8 +180,8 @@ export default function BentoGrid() {
           {/* Industry scroll card unchanged below */}
  {/* --- Card 3: Discuss Project --- */}
           <div className="md:col-span-5 bg-[#FFB677] rounded-[2rem] p-10 relative overflow-hidden min-h-[380px] flex flex-col items-center text-center">
-            <h3 className="text-[28px] font-bold text-[#0B1220] mb-8">Discuss your project</h3>
-            <button className="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-bold text-[15px] shadow-xl shadow-orange-900/20 relative z-10 hover:bg-[#e85a1f] transition-all">
+            <h3 className="text-[28px] font-medium text-[#0B1220] mb-8">Discuss your project</h3>
+            <button className="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-medium text-[15px] shadow-xl shadow-orange-900/20 relative z-10 hover:bg-[#e85a1f] transition-all">
               Schedule a call - 15 mins free
             </button>
             <p className="text-[13px] text-[#0B1220]/70 mt-4 font-semibold relative z-10">No pressure, just a thoughtful chat.</p>
@@ -197,7 +197,7 @@ export default function BentoGrid() {
           {/* --- Card 4: SEO --- */}
           <div className="md:col-span-7 bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm flex flex-col justify-between">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-[#0B1220]">How to 3X your business revenue?</h3>
+              <h3 className="text-2xl font-medium text-[#0B1220]">How to 3X your business revenue?</h3>
               <p className="text-[15px] text-gray-400 mt-2 font-medium">Complete end to end digital growth solutions.</p>
             </div>
             <div className="flex justify-around items-end pb-2">
@@ -206,7 +206,7 @@ export default function BentoGrid() {
                   <div className={`rounded-full flex items-center justify-center font-black border-[6px] ${stat.main ? 'w-28 h-28 text-2xl border-[#FF6B2C] text-[#0B1220]' : `w-20 h-20 text-lg border-orange-600 text-[#0B1220]/60`}`}>
                     {stat.val}
                   </div>
-                  <span className="text-[10px] font-bold text-gray-400 mt-5 tracking-[0.2em] uppercase">{stat.label}</span>
+                  <span className="text-[10px] font-medium text-gray-400 mt-5 tracking-[0.2em] uppercase">{stat.label}</span>
                 </div>
               ))}
             </div>
@@ -215,8 +215,8 @@ export default function BentoGrid() {
           {/* --- Card 5: Laptop --- */}
           <div className="md:col-span-3 bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm flex flex-col justify-between">
             <div className="mb-6">
-              <h3 className="font-bold text-lg text-[#0B1220]">Agency website rebuild</h3>
-              <p className="text-[11px] text-[#FF6B2C] font-bold mt-2 uppercase tracking-wider">120% more inquiries</p>
+              <h3 className="font-medium text-lg text-[#0B1220]">Agency website rebuild</h3>
+              <p className="text-[11px] text-[#FF6B2C] font-medium mt-2 uppercase tracking-wider">120% more inquiries</p>
             </div>
             <div className="mt-auto bg-[#F8F9FA] rounded-[1.5rem] p-1 border border-dashed border-gray-200 overflow-hidden">
                <div className="w-full h-28 bg-white rounded-[1.2rem] flex items-center justify-center">
@@ -227,7 +227,7 @@ export default function BentoGrid() {
 
           {/* --- Card 6: INDUSTRIES SCROLL WHEEL --- */}
           <div className="md:col-span-6 bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm flex flex-col items-center justify-center min-h-[280px] overflow-hidden">
-            <h3 className="text-lg font-bold text-[#0B1220] mb-8 relative z-10 bg-white px-4">
+            <h3 className="text-lg font-medium text-[#0B1220] mb-8 relative z-10 bg-white px-4">
               Industries we work with
             </h3>
             
@@ -278,8 +278,8 @@ export default function BentoGrid() {
             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800" alt="Dennis" className="w-full h-full object-cover saturate-0 opacity-80" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6">
-              <h4 className="text-white font-bold text-lg leading-tight">Dennis Barrett</h4>
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">CEO - Aitek</p>
+              <h4 className="text-white font-medium text-lg leading-tight">Pratik Newale</h4>
+              <p className="text-[10px] text-gray-400 font-medium uppercase tracking-[0.2em] mt-1">Founder & Business Head- Aitek Media</p>
             </div>
           </div>
         </div>
