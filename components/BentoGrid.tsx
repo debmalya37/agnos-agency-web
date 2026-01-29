@@ -8,24 +8,29 @@ const STRATEGY_SLIDES = [
   {
     title: "Brand Perception",
     quote: "Our design & branding does not clearly say online about who we truly are.",
-    sub: "People just like the look and feel, no brand perception."
+    sub: "People just like the look and feel, no brand perception.",
+    image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1000"
   },
   {
     title: "Social Engagement",
     quote: "Our social media content is not getting relevant impressions and engagement.",
-    sub: "There are only followers and likes on our social accounts as a vanity metric."
+    sub: "There are only followers and likes on our social accounts as a vanity metric.",
+    image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=1000"
   },
   {
     title: "SEO Visibility",
     quote: "When people search for our product, our competitors show before us on Google.",
-    sub: "We need organic visibility and traffic to site with the help of SEO."
+    sub: "We need organic visibility and traffic to site with the help of SEO.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000"
   },
   {
     title: "Paid Ads ROI",
     quote: "Our competitors are getting consistent leads and online sales from paid ads.",
-    sub: "Can Paid Ads really give predictable revenue and positive ROI?"
+    sub: "Can Paid Ads really give predictable revenue and positive ROI?",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000"
   }
 ];
+
 
 const INDUSTRIES = [
   "E-commerce & D2C",
@@ -129,11 +134,19 @@ export default function BentoGrid() {
           {/* --- Card 2 --- */}
           <div className="md:col-span-9 bg-white rounded-[2rem] p-5 flex flex-col md:flex-row gap-8 border border-gray-100 shadow-sm overflow-hidden">
             <div className="w-full md:w-[55%] h-56 md:h-64 bg-gray-100 rounded-2xl overflow-hidden relative">
-              <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000"
-                alt="Strategy"
-                className="w-full h-full object-cover"
-              />
+              <AnimatePresence mode="wait">
+  <motion.img
+    key={strategyIndex}
+    src={STRATEGY_SLIDES[strategyIndex].image}
+    alt={STRATEGY_SLIDES[strategyIndex].title}
+    className="w-full h-full object-cover"
+    initial={{ opacity: 0, scale: 1.05 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.95 }}
+    transition={{ duration: 0.4 }}
+  />
+</AnimatePresence>
+
               <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-white">
                 {strategyIndex + 1} / {STRATEGY_SLIDES.length}
               </div>
