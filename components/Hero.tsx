@@ -211,7 +211,7 @@ export default function Hero() {
       {/* Duplicate logos for seamless loop */}
       {[...Array(2)].map((_, loopIndex) => (
         <React.Fragment key={loopIndex}>
-          {[...Array(11)].map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <img
               key={`${loopIndex}-${i}`}
               src={`/assets/clients/${i + 1}.png`}
