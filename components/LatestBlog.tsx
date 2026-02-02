@@ -31,7 +31,7 @@ const BLOG_POSTS = [
 
 export default function LatestBlog() {
   return (
-    <section className="bg-[#0B1220] py-24 px-4 md:px-10 font-poppins">
+    <section className="bg-[#000000] py-4 px-4 md:px-10 font-poppins">
       <div className="max-w-[1200px] mx-auto">
         
         {/* Section Header */}

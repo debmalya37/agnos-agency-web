@@ -47,7 +47,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="bg-[#0B1220] py-24 px-4 md:px-10 font-poppins overflow-hidden">
+    <section className="bg-[#000000] py-24 px-4 md:px-10 font-poppins overflow-hidden">
       
       {/* Top Label */}
       <div className="w-full flex justify-center mb-4">
@@ -96,7 +96,7 @@ export default function FAQSection() {
                     </span>
                     
                     {/* Toggle Icon */}
-                    <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'bg-[#FF6B2C] rotate-180' : 'bg-[#0B1220] group-hover:bg-[#FF6B2C]'}`}>
+                    <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'bg-[#FF6B2C] rotate-180' : 'bg-[#000000] group-hover:bg-[#FF6B2C]'}`}>
                       {isOpen ? (
                         <Minus size={16} className="text-white md:w-5 md:h-5" strokeWidth={3} />
                       ) : (

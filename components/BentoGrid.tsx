@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { ChevronLeft, ChevronRight, House, Laptop } from "lucide-react";
+import { useInView } from "framer-motion";
+
 
 const STRATEGY_SLIDES = [
   {
@@ -47,6 +49,9 @@ export default function BentoGrid() {
   const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef(null);
+const isInView = useInView(containerRef, {
+  margin: "-20% 0px -20% 0px",
+});
 
   // Track scroll centered around section
   const { scrollYProgress } = useScroll({
@@ -56,22 +61,30 @@ export default function BentoGrid() {
 
   // Animate industry only in middle zone
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (isMobile) return;
+  if (isMobile) return;
+  if (!isInView) return; // 🚨 CRITICAL FIX
 
-    const start = 0.35;
+ const start = 0.50;
     const end = 0.8;
 
-    if (latest < start) {
-      setIndustryIndex(0);
-    } else if (latest > end) {
-      setIndustryIndex(INDUSTRIES.length - 1);
-    } else {
-      const progress = (latest - start) / (end - start);
-      const raw = Math.floor(progress * INDUSTRIES.length);
-      const clamped = Math.min(Math.max(raw, 0), INDUSTRIES.length - 1);
-      setIndustryIndex(clamped);
-    }
-  });
+  if (latest <= start) {
+    setIndustryIndex(0);
+    return;
+  }
+
+  if (latest >= end) {
+    setIndustryIndex(INDUSTRIES.length - 1);
+    return;
+  }
+
+  const progress = (latest - start) / (end - start);
+  const raw = Math.floor(progress * INDUSTRIES.length);
+
+  setIndustryIndex(
+    Math.min(Math.max(raw, 0), INDUSTRIES.length - 1)
+  );
+});
+
 
   // Mobile autoplay
   useEffect(() => {
@@ -98,7 +111,7 @@ export default function BentoGrid() {
   return (
     <section
       ref={containerRef}
-      className="bg-[#0B1220] relative md:py-32"
+      className="bg-[#000000] relative md:py-32"
     >
       {/* Sticky container WITHOUT cropping */}
       <div className="md:sticky md:top-20 px-4 md:px-10 font-sans z-10">
@@ -272,7 +285,8 @@ export default function BentoGrid() {
                       zIndex: position === 0 ? 10 : 1,
                       filter: position === 0 ? 'blur(0px)' : 'blur(2px)'
                     }}
-                    transition={{ duration: 0.5, ease: "backOut" }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+
                   >
                     <span className={`text-lg md:text-xl font-black tracking-wider uppercase transition-colors duration-300 ${position === 0 ? "text-[#FF6B2C]" : "text-gray-400"}`}>
                       {industry}
@@ -287,7 +301,7 @@ export default function BentoGrid() {
           </div>
 
           {/* --- Card 7: Dennis Barrett --- */}
-          <div className="md:col-span-3 bg-[#0B1220] rounded-[2rem] overflow-hidden relative h-[280px] border border-gray-800">
+          <div className="md:col-span-3 bg-[#000000] rounded-[2rem] overflow-hidden relative h-[280px] border border-gray-800">
             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800" alt="Dennis" className="w-full h-full object-cover saturate-0 opacity-80" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6">

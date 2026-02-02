@@ -157,7 +157,7 @@ export default function FeaturedProjects() {
   };
 
   return (
-    <section className="bg-[#0B1220] py-24 px-4 overflow-hidden">
+    <section className="bg-[#000000] py-24 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}

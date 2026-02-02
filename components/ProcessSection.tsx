@@ -171,7 +171,8 @@ export default function ProcessSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-[#0B1220] relative h-[500vh]">
+    <section ref={containerRef} className="bg-[#000000] relative h-[320vh]">
+
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         
         {/* HEADER */}

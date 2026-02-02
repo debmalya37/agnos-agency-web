@@ -30,7 +30,7 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section className="bg-[#0B1220] py-24 px-6 md:px-16 lg:px-24">
+    <section className="bg-[#000000] py-24 px-6 md:px-16 lg:px-24">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         
         {/* Left Side: Sticky Header Content */}

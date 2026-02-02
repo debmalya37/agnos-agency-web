@@ -32,7 +32,7 @@ const MarqueeRow = ({ images, direction = "left" }: { images: string[], directio
 
 export default function ProjectWall() {
   return (
-    <section className="relative py-24 bg-[#0B1220] overflow-hidden">
+    <section className="relative py-24 bg-[#000000] overflow-hidden">
       
       {/* Background Sliders */}
       <div className="opacity-90 hover:grayscale-0 transition-all duration-700">

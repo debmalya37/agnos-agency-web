@@ -5,7 +5,7 @@ import { Check, Flame } from "lucide-react";
 
 export default function GrowthPartner() {
   return (
-    <section className="bg-[#0B1220] py-24 px-4 md:px-10 font-poppins">
+    <section className="bg-[#000000] py-24 px-4 md:px-10 font-poppins">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
@@ -69,7 +69,7 @@ export default function GrowthPartner() {
               </ul>
 
               {/* CTA Button */}
-              <button className="bg-[#0B1220] text-white px-8 py-4 rounded-xl font-medium text-sm hover:bg-black transition-all shadow-lg relative z-10 w-full md:w-auto">
+              <button className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm hover:bg-black transition-all shadow-lg relative z-10 w-full md:w-auto">
                 Start your project
               </button>
 

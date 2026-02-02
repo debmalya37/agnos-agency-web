@@ -5,7 +5,7 @@ import { ArrowRight, Facebook, Instagram, Linkedin, X, Check } from "lucide-reac
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0B1220] pt-20 md:pt-32 overflow-hidden font-poppins">
+    <footer className="relative bg-[#000000] pt-20 md:pt-32 overflow-hidden font-poppins">
       
       {/* --- Background Arc (Z-0) --- */}
       <div className="absolute top-[150px] left-1/2 -translate-x-1/2 w-[200%] md:w-[150%] h-[2000px] bg-[#F3F3F3] rounded-[100%] z-0 pointer-events-none" />
@@ -61,7 +61,7 @@ export default function Footer() {
               <h2 className="text-4xl md:text-5xl font-medium text-[#0B1220] leading-[1.1] mb-8 tracking-tight">
                 Ready to start <br /> your next project?
               </h2>
-              <button className="bg-[#0B1220] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
+              <button className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
                 Get started
               </button>
             </div>
@@ -81,7 +81,7 @@ export default function Footer() {
                  <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center -space-x-3">
                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" className="w-12 h-12 rounded-full border-2 border-white object-cover" />
-                       <div className="w-12 h-12 rounded-full bg-[#0B1220] border-2 border-white flex items-center justify-center text-white text-xs font-medium">
+                       <div className="w-12 h-12 rounded-full bg-[#000000] border-2 border-white flex items-center justify-center text-white text-xs font-medium">
                           You
                        </div>
                     </div>
@@ -95,7 +95,7 @@ export default function Footer() {
                  </button>
 
                  {/* Floating Cursor Tag */}
-                 <div className="absolute -right-4 top-1/2 bg-[#0B1220] text-white text-[10px] font-medium px-2 py-1 rounded shadow-lg flex items-center gap-1 -rotate-6">
+                 <div className="absolute -right-4 top-1/2 bg-[#000000] text-white text-[10px] font-medium px-2 py-1 rounded shadow-lg flex items-center gap-1 -rotate-6">
                     <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[6px] border-b-white rotate-[-45deg] mb-3" />
                     AMANDA
                  </div>
@@ -175,7 +175,7 @@ export default function Footer() {
                 </h4>
                 <div className="flex gap-3">
                    {[Facebook, Instagram, Linkedin, X].map((Icon, i) => (
-                      <a key={i} href="#" className="w-10 h-10 bg-[#0B1220] rounded-full flex items-center justify-center text-white hover:bg-[#FF6B2C] hover:-translate-y-1 transition-all">
+                      <a key={i} href="#" className="w-10 h-10 bg-[#000000] rounded-full flex items-center justify-center text-white hover:bg-[#FF6B2C] hover:-translate-y-1 transition-all">
                          <Icon size={18} />
                       </a>
                    ))}

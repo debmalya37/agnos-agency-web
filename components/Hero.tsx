@@ -190,22 +190,49 @@ export default function Hero() {
       </div>
 
       {/* --- Footer Logos --- */}
-      <div className="mt-32 w-full max-w-full z-10 border-t border-dashed border-gray-700 pt-12">
-        <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-medium">
-          Trusted by 25+ Global Brands
-        </p>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14 grayscale opacity-60 hover:opacity-100 transition-opacity">
-  {[...Array(11)].map((_, i) => (
-    <img
-      key={i}
-      src={`/assets/clients/${i + 1}.png`}
-      alt={`Client ${i + 1}`}
-      className="h-10 md:h-14 w-auto object-contain transition-all duration-300 hover:scale-110"
-    />
-  ))}
+      {/* --- Footer Logos --- */}
+<div className="mt-32 w-full z-10 border-t border-dashed border-gray-700 pt-12 overflow-hidden">
+  <p className="text-center text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-10 font-medium">
+    Trusted by 25+ Global Brands
+  </p>
+
+  {/* Marquee Wrapper */}
+  <div className="relative w-full group">
+    <motion.div
+      className="flex items-center gap-16 w-max grayscale opacity-70 group-hover:opacity-100"
+      animate={{ x: ['0%', '-50%'] }}
+      transition={{
+        duration: 35,
+        repeat: Infinity,
+        ease: 'linear',
+      }}
+      whileHover={{ animationPlayState: 'paused' }}
+    >
+      {/* Duplicate logos for seamless loop */}
+      {[...Array(2)].map((_, loopIndex) => (
+        <React.Fragment key={loopIndex}>
+          {[...Array(11)].map((_, i) => (
+            <img
+              key={`${loopIndex}-${i}`}
+              src={`/assets/clients/${i + 1}.png`}
+              alt={`Client ${i + 1}`}
+              className="
+                h-20 md:h-28 lg:h-32
+                w-auto
+                object-contain
+                transition-all
+                duration-300
+                hover:scale-110
+                hover:grayscale-0
+              "
+            />
+          ))}
+        </React.Fragment>
+      ))}
+    </motion.div>
+  </div>
 </div>
 
-      </div>
     </section>
   );
 }
