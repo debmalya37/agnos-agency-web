@@ -66,7 +66,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="bg-[#000000] py-24 px-4 overflow-hidden font-poppins">
+    <section className="bg-[#000000] py-16 px-4 overflow-hidden font-poppins">
       <div className="max-w-[1400px] mx-auto">
         
         {/* Header */}
