@@ -55,7 +55,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left Content */}
             <div className="text-left">
-              <span className="text-[10px] font-medium tracking-[0.2em] text-orange-900/60 uppercase mb-4 block">
+              <span className="text-[10px] font-medium tracking-[0.2em] text-black uppercase mb-4 block">
                 Let's build something great
               </span>
               <h2 className="text-4xl md:text-5xl font-medium text-[#0B1220] leading-[1.1] mb-8 tracking-tight">
