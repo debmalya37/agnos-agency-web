@@ -11,6 +11,7 @@ import Testimonials from "@/components/Testimonials";
 import LatestBlog from "@/components/LatestBlog";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
+import PlansSection from "@/components/PlansSection";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <ServicesSection />
       <FeaturedProjects />
       <ProcessSection />
+      {/* <PlansSection /> */}
       {/* <GrowthPartner /> */}
       <Testimonials />
       <LatestBlog />

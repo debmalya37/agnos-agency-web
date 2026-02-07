@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["images.unsplash.com", "media.istockphoto.com"],
+    domains: ["images.unsplash.com", "media.istockphoto.com", "i.pravatar.cc"],
   },
   // Add this block to ignore ESLint errors during build
   eslint: {

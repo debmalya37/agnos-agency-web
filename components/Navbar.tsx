@@ -32,8 +32,8 @@ export default function Navbar() {
           <Link href="/services" className="hover:text-black transition-colors">
             Services
           </Link>
-          <Link href="/about" className="hover:text-black transition-colors">
-            About
+          <Link href="/contact" className="hover:text-black transition-colors">
+            Contact
           </Link>
           <Link href="/case-studies" className="hover:text-black transition-colors">
             Case Studies
@@ -58,8 +58,8 @@ export default function Navbar() {
           <Link href="/services" onClick={() => setIsOpen(false)}>
             Services
           </Link>
-          <Link href="/about" onClick={() => setIsOpen(false)}>
-            About
+          <Link href="/contact" onClick={() => setIsOpen(false)}>
+            Contact
           </Link>
           <Link
             href="/get-started"

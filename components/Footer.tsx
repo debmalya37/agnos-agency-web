@@ -163,9 +163,9 @@ export default function Footer() {
                   Get in touch
                 </h4>
                 <div className="space-y-4">
-                   <p className="text-[#0B1220] font-medium text-lg">+1 (234) 567-89-01</p>
-                   <p className="text-[#0B1220] font-medium">support@example.com</p>
-                   <p className="text-gray-500 font-medium">1238 Echo Ridge Blvd, Suite 400 <br /> San Francisco, CA 94103, US</p>
+                   <p className="text-[#0B1220] font-medium text-lg">+918600541991</p>
+                   <p className="text-[#0B1220] font-medium">pratik@aitekmedia.net</p>
+                   <p className="text-gray-500 font-medium">Office No 214, Konark Business Centre,<br />  Mundhwa, Pune-411036 </p>
                 </div>
              </div>
 
