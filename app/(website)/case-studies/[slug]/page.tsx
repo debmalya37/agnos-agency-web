@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { ArrowRight, MessageSquareQuote } from 'lucide-react';
-import { ICaseStudy } from '@/models/CaseStudy';
+import CaseStudy, { ICaseStudy } from '@/models/CaseStudy';
+import connectDB from '@/lib/db';
 
 // --- TYPES ---
 type Props = {
@@ -11,24 +12,17 @@ type Props = {
 };
 
 // --- DATA FETCHING VIA API ---
+// --- DIRECT DB FETCHING (No API Call) ---
 async function getCaseStudy(slug: string): Promise<ICaseStudy | null> {
-  // Use env variable or fallback to localhost for dev
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  
-  try {
-    const res = await fetch(`${baseUrl}/api/case-studies/${slug}`, {
-      cache: 'no-store', // Fetches fresh data on every request
-    });
+  await connectDB(); // Connect directly
 
-    if (!res.ok) {
-      return null;
-    }
+  // Query DB directly
+  const caseStudy = await CaseStudy.findOne({ slug, status: 'published' }).lean();
 
-    return await res.json();
-  } catch (error) {
-    console.error("Failed to fetch case study:", error);
-    return null;
-  }
+  if (!caseStudy) return null;
+
+  // Convert MongoDB object to plain JSON (fixes ID serialization issues)
+  return JSON.parse(JSON.stringify(caseStudy));
 }
 
 // --- DYNAMIC METADATA ---

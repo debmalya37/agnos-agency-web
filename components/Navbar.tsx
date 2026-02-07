@@ -29,7 +29,7 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-          <Link href="/services" className="hover:text-black transition-colors">
+          <Link href="/services/web-development" className="hover:text-black transition-colors">
             Services
           </Link>
           <Link href="/contact" className="hover:text-black transition-colors">
@@ -55,7 +55,7 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="absolute top-20 left-0 w-full bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 md:hidden shadow-xl animate-in fade-in zoom-in duration-200">
-          <Link href="/services" onClick={() => setIsOpen(false)}>
+          <Link href="/services/web-development" onClick={() => setIsOpen(false)}>
             Services
           </Link>
           <Link href="/contact" onClick={() => setIsOpen(false)}>
