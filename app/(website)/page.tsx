@@ -30,7 +30,7 @@ export default function Home() {
       <Testimonials />
       <LatestBlog />
       <FAQSection />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
