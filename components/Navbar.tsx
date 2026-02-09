@@ -24,7 +24,7 @@ export default function Navbar() {
             />
           </div>
 
-          <span className="text-xl font-medium tracking-tight">Aitek</span>
+          <span className="text-xl font-medium tracking-tight text-gray-900">Aitek</span>
         </Link>
 
         {/* Desktop Menu */}

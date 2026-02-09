@@ -81,7 +81,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">Chat to us</h3>
                   <p className="text-gray-400 text-sm mb-3">Our friendly team is here to help.</p>
-                  <a href="mailto:hello@unio.agency" className="text-white font-medium hover:text-orange-500 transition-colors">hello@unio.agency</a>
+                  <a href="mailto:pratik@aitekmedia.net" className="text-white font-medium hover:text-orange-500 transition-colors">pratik@aitekmedia.net</a>
                 </div>
               </div>
             </div>
@@ -94,7 +94,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">Visit us</h3>
                   <p className="text-gray-400 text-sm mb-3">Come say hello at our office HQ.</p>
-                  <p className="text-white font-medium">100 Innovation Dr, Tech City</p>
+                  <p className="text-white font-medium">Office No 214, Konark Business Centre,
+Mundhwa, Pune, India</p>
                 </div>
               </div>
             </div>
@@ -107,7 +108,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">Call us</h3>
                   <p className="text-gray-400 text-sm mb-3">Mon-Fri from 8am to 5pm.</p>
-                  <a href="tel:+15550000000" className="text-white font-medium hover:text-orange-500 transition-colors">+1 (555) 000-0000</a>
+                  <a href="tel:+918600541991" className="text-white font-medium hover:text-orange-500 transition-colors">+91 86005 41991</a>
                 </div>
               </div>
             </div>

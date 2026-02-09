@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 export const sendLeadEmail = async (data: any) => {
   try {
     const info = await transporter.sendMail({
-      from: `"Unio Website" <${process.env.SMTP_USER}>`,
+      from: `"Aitek Media" <${process.env.SMTP_USER}>`,
       to: process.env.ADMIN_EMAIL, // This is where you receive the lead
       subject: `New Lead: ${data.name} - ${data.subject}`,
       html: `

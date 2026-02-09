@@ -7,7 +7,7 @@ import CaseStudy, { ICaseStudy } from '@/models/CaseStudy';
 import { CldImage } from 'next-cloudinary'; // Optional: Use if you want optimized images on listing too
 
 export const metadata: Metadata = {
-  title: 'Case Studies | Unio Agency',
+  title: 'Case Studies | Aitek Media Agency',
   description: 'Explore how we have helped ambitious brands scale through strategic design and development.',
 };
 
@@ -141,7 +141,7 @@ export default async function CaseStudiesPage() {
             Ready to write your success story?
           </h2>
           <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
-            Join the forward-thinking companies that trust Unio to deliver exceptional digital experiences.
+            Join the forward-thinking companies that trust Aitek to deliver exceptional digital experiences.
           </p>
           <Link 
             href="/contact" 

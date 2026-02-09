@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!caseStudy) return { title: 'Case Study Not Found' };
 
   return {
-    title: `${caseStudy.title} | Unio Case Studies`,
+    title: `${caseStudy.title} | Aitek Case Studies`,
     description: caseStudy.excerpt,
     openGraph: {
       title: caseStudy.title,

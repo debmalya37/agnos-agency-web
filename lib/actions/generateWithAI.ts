@@ -46,7 +46,7 @@ export async function generateCaseStudyAI(topic: string, type: "titles" | "full_
       - seoDescription: An SEO meta description under 160 chars (string).
       - tags: An array of 5 relevant keyword strings (array).
       - results: An array of 3 objects, each with "label" (string) and "value" (string). e.g. { "label": "Revenue", "value": "+200%" }.
-      - schemaMarkup: A valid, minified JSON-LD 'Article' schema string. Include headline, datePublished (use placeholder), and author (Unio) (string).
+      - schemaMarkup: A valid, minified JSON-LD 'Article' schema string. Include headline, datePublished (use placeholder), and author (Aitek Media) (string).
 
       IMPORTANT: Return ONLY the JSON. No markdown formatting like \`\`\`json.
     `;
