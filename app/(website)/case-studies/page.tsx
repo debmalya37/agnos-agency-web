@@ -4,7 +4,10 @@ import { Metadata } from 'next';
 import { ArrowRight, LayoutGrid } from 'lucide-react';
 import connectDB from '@/lib/db';
 import CaseStudy, { ICaseStudy } from '@/models/CaseStudy';
-import { CldImage } from 'next-cloudinary'; // Optional: Use if you want optimized images on listing too
+
+// --- FIX: FORCE DYNAMIC RENDERING ---
+// This ensures the page fetches fresh data on every visit
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: 'Case Studies | Aitek Media Agency',
@@ -71,7 +74,6 @@ export default async function CaseStudiesPage() {
                   <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[#141820] shadow-2xl transition-all duration-500 group-hover:shadow-orange-500/10 group-hover:border-white/20">
                     <div className="absolute inset-0 bg-gray-800 animate-pulse" /> {/* Loading placeholder feeling */}
                     
-                    {/* Use standard img for simplicity or CldImage if you prefer */}
                     <img
                       src={study.coverImage}
                       alt={study.title}
