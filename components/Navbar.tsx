@@ -39,7 +39,7 @@ export default function Navbar() {
             Case Studies
           </Link>
           <Link
-            href="/get-started"
+            href="/contact"
             className="bg-black text-white px-5 py-2 rounded-lg hover:bg-gray-800 transition-all"
           >
             Get started
