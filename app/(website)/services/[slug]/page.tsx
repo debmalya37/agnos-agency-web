@@ -8,6 +8,7 @@ import { SERVICES_DATA } from "@/lib/servicesData";
 import { motion, useScroll, useTransform, useInView, Variants } from "framer-motion";
 import PlansSection from "@/components/PlansSection";
 import { getCalApi } from "@calcom/embed-react";
+import Link from "next/link";
 
 // --- CONFIGURATION ---
 const CAL_NAMESPACE = "30min"; 
@@ -191,10 +192,10 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </button>
               
-              <button className="group rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white/80 transition-all hover:border-[#FF6B2C]/40 hover:bg-white/10 hover:text-white flex items-center gap-2 justify-center">
+              <Link href="/case-studies"  className="group rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white/80 transition-all hover:border-[#FF6B2C]/40 hover:bg-white/10 hover:text-white flex items-center gap-2 justify-center">
                 View Success Stories
                 <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-              </button>
+              </Link>
             </motion.div>
 
             {/* Trust Tags */}
