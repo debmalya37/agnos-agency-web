@@ -1,182 +1,243 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, use } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Check, X, PlayCircle, ArrowRight } from "lucide-react";
-import { SERVICES_DATA } from "@/lib/servicesData"; // Adjust path as needed
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import { SERVICES_DATA } from "@/lib/servicesData";
+import { motion, useScroll, useTransform, useInView, Variants } from "framer-motion";
 import PlansSection from "@/components/PlansSection";
+import { getCalApi } from "@calcom/embed-react";
 
-// --- ANIMATION VARIANTS ---
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
+// --- CONFIGURATION ---
+const CAL_NAMESPACE = "30min"; 
+const CAL_LINK = "aitek-media/30min"; 
 
-const staggerContainer = {
+// --- ANIMATION CONSTANTS ---
+// "Luxury" Easing for smooth UI (similar to iOS/macOS)
+const EASING = [0.25, 0.1, 0.25, 1.0]; 
+
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
   }
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
   visible: { 
     opacity: 1, 
+    y: 0, 
     scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.8, ease: EASING }
   }
 };
 
-// --- REUSABLE ANIMATED SECTION WRAPPER ---
-const AnimatedSection = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+// --- COMPONENT: HERO TITLE REVEAL ---
+// Splits text into words and masks them for a premium reveal effect
+const TitleReveal = ({ text, className }: { text: string; className?: string }) => {
+  const words = text.split(" ");
+  
+  const wordAnim: Variants = {
+    hidden: { y: "120%", rotate: 2, opacity: 0 },
+    visible: { 
+      y: 0, 
+      rotate: 0, 
+      opacity: 1,
+      transition: { duration: 0.8, ease: EASING }
+    }
+  };
 
   return (
-    <motion.section
-      ref={ref}
+    <motion.h1 
+      className={`flex flex-wrap gap-x-3 gap-y-1 ${className}`}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={fadeInUp}
-      className={className}
+      animate="visible"
+      variants={{
+        visible: { transition: { staggerChildren: 0.08 } }
+      }}
     >
-      {children}
-    </motion.section>
+      {words.map((word, i) => (
+        <span key={i} className="relative overflow-hidden inline-block -mb-2 pb-2 px-1">
+          <motion.span variants={wordAnim} className="inline-block origin-bottom-left will-change-transform">
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </motion.h1>
   );
 };
 
-// 2. The Main Page Component
-export default function ServiceDetailsPage({ params }: { params: { slug: string } }) {
-  const service = SERVICES_DATA[params.slug];
+// --- COMPONENT: SMOOTH SCROLL WRAPPER ---
+// Handles the "In View" detection and smooth entry
+const ScrollReveal = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }} // Triggers when 100px into view, only once for performance
+      transition={{ duration: 0.8, ease: EASING, delay }}
+      variants={itemVariants}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
-  // Handle invalid slugs
-  if (!service) {
-    notFound();
-  }
+// ---------------- MAIN PAGE COMPONENT ---------------- //
 
-  // Parallax Scroll Hooks
+export default function ServiceDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+  // 1. Next.js 15 / React 19: Unwrap params using `use`
+  const { slug } = use(params);
+  const service = SERVICES_DATA[slug];
+
+  // --- CAL.COM INITIALIZATION ---
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: CAL_NAMESPACE });
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark"
+      });
+    })();
+  }, []);
+
+  const handleBooking = async () => {
+    const cal = await getCalApi({ namespace: CAL_NAMESPACE });
+    cal("modal", {
+        calLink: CAL_LINK,
+        config: { layout: "month_view", theme: "dark" }
+    });
+  };
+
+  if (!service) notFound();
+
+  // Parallax Setup
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]); // Slow background move
-  const y2 = useTransform(scrollY, [0, 500], [0, -150]); // Reverse move
+  const y1 = useTransform(scrollY, [0, 1000], [0, 300]); 
+  const y2 = useTransform(scrollY, [0, 1000], [0, -200]); 
 
-  const sectionPadding = "px-6 py-20 relative z-10";
+  const sectionPadding = "px-6 py-24 relative z-10";
   const container = "mx-auto max-w-6xl";
-  const surface = "rounded-[28px] border border-white/10 bg-[#141414] shadow-xl hover:border-white/20 transition-colors duration-500";
+  const surface = "rounded-[28px] border border-white/10 bg-[#141414] shadow-xl hover:border-white/20 transition-colors duration-500 will-change-transform";
 
   const videoTestimonials = [
-    {
-      name: "Aarav Malhotra",
-      role: "CEO, FinEdge",
-      summary: "Revenue lift in 90 days",
-      image: service.showcase.images[0],
-    },
-    {
-      name: "Riya Kapoor",
-      role: "VP Growth, NovaPay",
-      summary: "Pipeline velocity +38%",
-      image: service.showcase.images[1],
-    },
-    {
-      name: "Daniel Moore",
-      role: "Founder, Calibrate",
-      summary: "Launch quality at scale",
-      image: service.painPoint.image,
-    },
+    { name: "Aarav Malhotra", role: "CEO, FinEdge", summary: "Revenue lift in 90 days", image: service.showcase.images[0] },
+    { name: "Riya Kapoor", role: "VP Growth, NovaPay", summary: "Pipeline velocity +38%", image: service.showcase.images[1] },
+    { name: "Daniel Moore", role: "Founder, Calibrate", summary: "Launch quality at scale", image: service.painPoint.image },
   ];
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] font-sans text-white selection:bg-[#FF6B2C] selection:text-white overflow-hidden">
       
       {/* ---------------- SECTION 1: HERO ---------------- */}
-      <section className="relative px-6 pb-16 pt-32 lg:pt-40">
-        {/* Animated Background Blobs */}
-        <motion.div style={{ y: y1 }} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-32 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#FF6B2C]/15 blur-[160px] opacity-80" />
+      <section className="relative px-6 pb-20 pt-32 lg:pt-44">
+        {/* Parallax Background Elements */}
+        <motion.div style={{ y: y1 }} className="absolute inset-0 -z-10 pointer-events-none opacity-60 mix-blend-screen">
+          <div className="absolute -top-32 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-[#FF6B2C]/10 blur-[180px]" />
         </motion.div>
-        <motion.div style={{ y: y2 }} className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute top-1/4 right-[-100px] h-[400px] w-[400px] rounded-full bg-[#FF9A5C]/10 blur-[140px]" />
+        <motion.div style={{ y: y2 }} className="absolute inset-0 -z-10 pointer-events-none opacity-50">
+          <div className="absolute top-1/4 right-[-200px] h-[500px] w-[500px] rounded-full bg-[#FF9A5C]/5 blur-[160px]" />
         </motion.div>
 
-        <div className={`${container} grid w-full items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]`}>
-          
-          {/* Text Content */}
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="text-center lg:text-left"
-          >
-            <motion.div variants={fadeInUp}>
-              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#FF6B2C]/40 bg-[#1A1A1A]/80 backdrop-blur-md px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#FF9A5C]">
+        <div className={`${container} grid w-full items-center gap-16 lg:grid-cols-[1.15fr_0.85fr]`}>
+          <div className="text-center lg:text-left">
+            
+            {/* Trusted Badge */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASING }}
+            >
+              <p className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#FF6B2C]/30 bg-[#1A1A1A]/80 backdrop-blur-md px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#FF9A5C] shadow-lg shadow-[#FF6B2C]/10">
                 Trusted Service Partner
               </p>
             </motion.div>
             
-            <motion.h1 variants={fadeInUp} className="text-5xl font-medium leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
-              {service.hero.headline}
-            </motion.h1>
+            {/* Animated H1 */}
+            <TitleReveal 
+              text={service.hero.headline} 
+              className="text-5xl font-medium leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl justify-center lg:justify-start" 
+            />
             
-            <motion.p variants={fadeInUp} className="mt-8 text-lg leading-relaxed text-gray-300 sm:text-xl max-w-2xl mx-auto lg:mx-0">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+              className="mt-8 text-lg leading-relaxed text-gray-300 sm:text-xl max-w-2xl mx-auto lg:mx-0"
+            >
               {service.hero.subheadline}
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
-              <button className="group relative overflow-hidden rounded-full bg-gradient-to-r from-[#FF6B2C] to-[#FF9152] px-10 py-4 text-base font-medium text-black shadow-2xl shadow-orange-500/20 transition-all hover:scale-[1.02] hover:shadow-orange-500/40">
+            {/* Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: EASING }}
+              className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start"
+            >
+              <button 
+                data-cal-namespace={CAL_NAMESPACE}
+                data-cal-link={CAL_LINK}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                onClick={handleBooking}
+                className="group relative overflow-hidden rounded-full bg-gradient-to-r from-[#FF6B2C] to-[#FF9152] px-10 py-4 text-base font-bold text-black shadow-[0_0_40px_-10px_rgba(255,107,44,0.4)] transition-all hover:scale-[1.03] hover:shadow-[0_0_60px_-10px_rgba(255,107,44,0.6)]"
+              >
                 <span className="relative z-10">{service.hero.cta}</span>
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </button>
-              <button className="group rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white/80 transition-all hover:border-[#FF6B2C]/60 hover:bg-white/10 hover:text-white flex items-center gap-2 justify-center">
+              
+              <button className="group rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white/80 transition-all hover:border-[#FF6B2C]/40 hover:bg-white/10 hover:text-white flex items-center gap-2 justify-center">
                 View Success Stories
                 <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </button>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500 font-medium lg:justify-start">
+            {/* Trust Tags */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="mt-12 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500 font-medium lg:justify-start"
+            >
               {["Confidential & NDA-ready", "Senior specialists only", service.hero.trustText].map((tag, i) => (
                 <span key={i} className="rounded-full border border-white/5 bg-white/5 px-4 py-2 uppercase tracking-widest hover:bg-white/10 transition-colors cursor-default">
                   {tag}
                 </span>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Hero Image / Card */}
+          {/* Hero Image */}
           <motion.div 
-            initial={{ opacity: 0, x: 50, rotate: 5 }}
-            animate={{ opacity: 1, x: 0, rotate: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            initial={{ opacity: 0, x: 100, rotate: 5, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, rotate: 0, scale: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="relative hidden lg:block"
           >
-            <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-[#141414]/80 backdrop-blur-xl p-5 shadow-2xl transition-transform hover:scale-[1.02] duration-500">
+            <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-[#141414]/80 backdrop-blur-xl p-5 shadow-2xl transition-transform hover:scale-[1.01] duration-700">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[32px]">
                 <Image 
                   src={service.showcase.images[0]} 
                   alt="Service preview" 
                   fill 
-                  className="object-cover transition-transform duration-700 hover:scale-110"
+                  className="object-cover transition-transform duration-1000 hover:scale-105"
                   priority
                 />
               </div>
               <div className="mt-5 flex items-center justify-between rounded-3xl border border-white/10 bg-black/40 px-6 py-4 backdrop-blur-md">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-500">Engagement</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Engagement</p>
                   <p className="text-lg font-bold text-white">Strategic + Execution</p>
                 </div>
-                <div className="flex items-center gap-2 rounded-full bg-[#FF6B2C] px-4 py-2 text-xs font-bold text-black shadow-lg shadow-orange-500/20">
+                {/* <div className="flex items-center gap-2 rounded-full bg-[#FF6B2C] px-4 py-2 text-xs font-bold text-black shadow-lg shadow-orange-500/20">
                   <PlayCircle className="h-4 w-4" />
                   Proof
-                </div>
+                </div> */}
               </div>
             </div>
           </motion.div>
@@ -184,25 +245,19 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
       </section>
 
       {/* ---------------- SECTION 2: SHOWCASE ---------------- */}
-      <AnimatedSection className={`${sectionPadding} bg-[#0E0E0E]`}>
+      <section className={`${sectionPadding} bg-[#0E0E0E]`}>
         <div className={container}>
-          <div className="mb-16 text-center max-w-3xl mx-auto">
+          <ScrollReveal className="mb-20 text-center max-w-3xl mx-auto">
             <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl tracking-tight">
               {service.showcase.title}
             </h2>
             <p className="mt-6 text-lg text-gray-400 leading-relaxed">{service.showcase.subtitle}</p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             
             {/* Features List */}
-            <motion.div 
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className={`${surface} p-10 text-left relative overflow-hidden group`}
-            >
+            <ScrollReveal className={`${surface} p-10 text-left relative overflow-hidden group`}>
               <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B2C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C]">Positioning</p>
@@ -212,92 +267,72 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
               </p>
               
               <div className="mt-8 space-y-4 text-sm text-gray-300">
-                {[
-                  "Executive-grade creative direction",
-                  "Conversion-first layouts and messaging",
-                  "Consistent, premium visual systems",
-                ].map((item) => (
-                  <motion.div variants={fadeInUp} key={item} className="flex items-start gap-4">
+                {["Executive-grade creative direction", "Conversion-first layouts and messaging", "Consistent, premium visual systems"].map((item) => (
+                  <div key={item} className="flex items-start gap-4">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#FF9A5C]/20 text-[#FF9A5C]">
                       <Check className="h-3 w-3" strokeWidth={3} />
                     </div>
                     <span className="font-medium">{item}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
               <div className="mt-10 grid grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-white/10 bg-black/40 px-6 py-5 text-center">
-                  <p className="text-2xl font-bold text-white">24/7</p>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Response</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-black/40 px-6 py-5 text-center">
-                  <p className="text-2xl font-bold text-white">30+</p>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Launches</p>
-                </div>
+                {[
+                  { val: "24/7", lbl: "Response" },
+                  { val: "30+", lbl: "Launches" }
+                ].map((stat) => (
+                  <div key={stat.lbl} className="rounded-2xl border border-white/10 bg-black/40 px-6 py-5 text-center">
+                    <p className="text-2xl font-bold text-white">{stat.val}</p>
+                    <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">{stat.lbl}</p>
+                  </div>
+                ))}
               </div>
-            </motion.div>
+            </ScrollReveal>
 
             {/* Images Grid */}
             <div className="grid gap-6">
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.4 }}
-                className="relative h-[280px] overflow-hidden rounded-[32px] border border-white/10 shadow-2xl sm:h-[340px]"
-              >
-                <Image src={service.showcase.images[0]} alt="Showcase 1" fill className="object-cover" />
+              <ScrollReveal delay={0.2} className="relative h-[280px] overflow-hidden rounded-[32px] border border-white/10 shadow-2xl sm:h-[340px]">
+                <Image src={service.showcase.images[0]} alt="Showcase 1" fill className="object-cover transition-transform duration-700 hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              </motion.div>
+              </ScrollReveal>
               
               <div className="grid grid-cols-[1.2fr_0.8fr] gap-6">
-                <motion.div 
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.4 }}
-                  className="relative h-[200px] overflow-hidden rounded-[28px] border border-white/10 shadow-xl"
-                >
-                  <Image src={service.showcase.images[1]} alt="Showcase 2" fill className="object-cover" />
-                </motion.div>
-                <div className="rounded-[28px] border border-[#FF6B2C]/20 bg-[#141414] p-6 flex flex-col justify-center">
+                <ScrollReveal delay={0.3} className="relative h-[200px] overflow-hidden rounded-[28px] border border-white/10 shadow-xl">
+                  <Image src={service.showcase.images[1]} alt="Showcase 2" fill className="object-cover transition-transform duration-700 hover:scale-105" />
+                </ScrollReveal>
+                <ScrollReveal delay={0.4} className="rounded-[28px] border border-[#FF6B2C]/20 bg-[#141414] p-6 flex flex-col justify-center">
                   <p className="text-3xl font-bold text-white">+240%</p>
                   <p className="text-xs font-bold uppercase tracking-widest text-[#FF9A5C] mt-2">Conversion Lift</p>
-                </div>
+                </ScrollReveal>
               </div>
             </div>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* ---------------- SECTION 3: TESTIMONIALS ---------------- */}
-      <AnimatedSection className={sectionPadding}>
+      <section className={sectionPadding}>
         <div className={container}>
-          <div className="mb-16 text-center">
+          <ScrollReveal className="mb-16 text-center">
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C]">Client Proof</p>
             <h2 className="mt-6 text-3xl font-medium text-white sm:text-4xl lg:text-5xl">Results That Build Trust</h2>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid gap-8 lg:grid-cols-3">
-            {videoTestimonials.map((testimonial, i) => (
-              <motion.div 
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                className={`${surface} overflow-hidden group cursor-pointer`}
-              >
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            variants={containerVariants}
+            className="grid gap-8 lg:grid-cols-3"
+          >
+            {videoTestimonials.map((testimonial) => (
+              <motion.div key={testimonial.name} variants={itemVariants} className={`${surface} overflow-hidden group cursor-pointer`}>
                 <div className="relative h-[240px] overflow-hidden">
-                  <Image 
-                    src={testimonial.image} 
-                    alt={testimonial.name} 
-                    fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-110" 
-                  />
+                  <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-2xl transition-all group-hover:bg-[#FF6B2C] group-hover:border-[#FF6B2C] group-hover:text-black"
-                    >
+                    <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-2xl transition-all group-hover:bg-[#FF6B2C] group-hover:border-[#FF6B2C] group-hover:text-black">
                       <PlayCircle className="h-8 w-8 ml-1 fill-current" />
                     </motion.div>
                   </div>
@@ -314,16 +349,15 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* ---------------- SECTION 4: PAIN POINT COMPARISON ---------------- */}
-      <AnimatedSection className={sectionPadding}>
+      <section className={sectionPadding}>
         <div className={container}>
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div className="rounded-[40px] border border-white/10 bg-[#121212] p-10 shadow-2xl sm:p-14 relative overflow-hidden">
-              {/* Subtle background gradient */}
+            <ScrollReveal className="rounded-[40px] border border-white/10 bg-[#121212] p-10 shadow-2xl sm:p-14 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#FF6B2C]/5 blur-[100px] rounded-full pointer-events-none" />
               
               <h2 className="text-2xl font-medium text-white sm:text-3xl relative z-10">{service.painPoint.title}</h2>
@@ -339,46 +373,49 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
               </ul>
               <div className="mt-12 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center relative z-10">
                 <p className="text-sm text-gray-500 font-medium">Ready to fix this?</p>
-                <button className="rounded-full bg-[#FF6B2C] px-8 py-3 text-sm font-bold text-black transition hover:bg-[#ff8145] hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
+                <button 
+                  data-cal-namespace={CAL_NAMESPACE}
+                  data-cal-link={CAL_LINK}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  onClick={handleBooking}
+                  className="rounded-full bg-[#FF6B2C] px-8 py-3 text-sm font-bold text-black transition hover:bg-[#ff8145] hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
+                >
                   Book a Private Consultation
                 </button>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative h-[400px] overflow-hidden rounded-[40px] border border-white/10 shadow-2xl sm:h-[520px]"
-            >
+            <ScrollReveal delay={0.2} className="relative h-[400px] overflow-hidden rounded-[40px] border border-white/10 shadow-2xl sm:h-[520px]">
               <Image src={service.painPoint.image} alt="Pain Point Visual" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-10 left-10 max-w-xs">
                 <p className="text-3xl font-medium text-white">Stop guessing.</p>
                 <p className="text-gray-400 mt-2">Data-backed decisions always win.</p>
               </div>
-            </motion.div>
+            </ScrollReveal>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* ---------------- SECTION 5: WHAT'S INCLUDED ---------------- */}
       <section className={`${sectionPadding} bg-[#0E0E0E]`}>
         <div className={container}>
-          <AnimatedSection className="text-center max-w-4xl mx-auto mb-20">
+          <ScrollReveal className="text-center max-w-4xl mx-auto mb-20">
             <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl">What&apos;s Included</h2>
             <p className="mt-6 text-lg text-gray-400">A senior-led, end-to-end delivery framework built for performance.</p>
-          </AnimatedSection>
+          </ScrollReveal>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            variants={containerVariants}
+            className="grid gap-8 md:grid-cols-3"
+          >
             {service.features.map((feature: any, i: number) => (
               <motion.div 
                 key={i} 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                variants={itemVariants}
                 className={`${surface} p-10 text-left hover:-translate-y-2 transition-transform duration-300`}
               >
                 <span className="inline-block rounded-lg bg-[#FF6B2C]/10 p-3 text-[#FF6B2C] mb-6">
@@ -389,22 +426,22 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
                 <p className="text-base leading-relaxed text-gray-400">{feature.desc}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-<PlansSection />
+      <PlansSection />
+      
       {/* ---------------- SECTION 6: WHOM THIS IS FOR ---------------- */}
-      <AnimatedSection className={sectionPadding}>
+      <section className={sectionPadding}>
         <div className={container}>
-          <div className="mb-16 text-center">
+          <ScrollReveal className="mb-16 text-center">
             <h2 className="text-3xl font-medium text-white sm:text-4xl">Whom This Is For</h2>
             <p className="mt-4 text-gray-400">A focused engagement designed for teams ready to scale.</p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid gap-8 lg:grid-cols-2">
-            {/* Positive Fit */}
-            <div className={`${surface} p-10 border-green-500/20 bg-green-900/5`}>
+            <ScrollReveal className={`${surface} p-10 border-green-500/20 bg-green-900/5`}>
               <h3 className="text-xl font-medium text-white flex items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-black">
                   <Check size={16} strokeWidth={3} />
@@ -419,10 +456,9 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
                   </li>
                 ))}
               </ul>
-            </div>
+            </ScrollReveal>
 
-            {/* Negative Fit */}
-            <div className="rounded-[28px] border border-white/5 bg-[#0F0F0F] p-10 opacity-70 hover:opacity-100 transition-opacity">
+            <ScrollReveal delay={0.2} className="rounded-[28px] border border-white/5 bg-[#0F0F0F] p-10 opacity-70 hover:opacity-100 transition-opacity">
               <h3 className="text-xl font-medium text-gray-400 flex items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white">
                   <X size={16} strokeWidth={3} />
@@ -437,17 +473,11 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
                   </li>
                 ))}
               </ul>
-            </div>
+            </ScrollReveal>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="mt-20 flex flex-col items-center gap-6 rounded-[40px] border border-white/10 bg-gradient-to-b from-[#1A1A1A] to-black px-8 py-16 text-center shadow-2xl overflow-hidden relative"
-          >
-            {/* CTA Background Effects */}
-            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
+          <ScrollReveal className="mt-20 flex flex-col items-center gap-6 rounded-[40px] border border-white/10 bg-gradient-to-b from-[#1A1A1A] to-black px-8 py-16 text-center shadow-2xl overflow-hidden relative">
+            <div className="absolute inset-0 bg-[url('https://cdn-icons-png.flaticon.com/512/5192/5192237.png')] opacity-20 mix-blend-overlay" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#FF6B2C]/10 to-transparent pointer-events-none" />
 
             <p className="text-sm font-bold uppercase tracking-[0.3em] text-[#FF9A5C] relative z-10">Next Steps</p>
@@ -455,17 +485,21 @@ export default function ServiceDetailsPage({ params }: { params: { slug: string 
               Ready to move with <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">confidence?</span>
             </h3>
             <div className="mt-4 relative z-10">
-              <button className="group relative rounded-full bg-[#FF6B2C] px-12 py-5 text-lg font-bold text-black shadow-2xl shadow-orange-500/30 transition-all hover:scale-[1.03] hover:bg-[#ff8145]">
+              <button 
+                data-cal-namespace={CAL_NAMESPACE}
+                data-cal-link={CAL_LINK}
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                onClick={handleBooking}
+                className="group relative rounded-full bg-[#FF6B2C] px-12 py-5 text-lg font-bold text-black shadow-2xl shadow-orange-500/30 transition-all hover:scale-[1.03] hover:bg-[#ff8145]"
+              >
                 {service.hero.cta}
                 <div className="absolute inset-0 bg-[#13131370] translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
               </button>
             </div>
             <p className="mt-6 text-sm text-gray-500 relative z-10">Limited spots available for Q1 2026</p>
-          </motion.div>
+          </ScrollReveal>
         </div>
-      </AnimatedSection>
-
-      
+      </section>
     </main>
   );
 }

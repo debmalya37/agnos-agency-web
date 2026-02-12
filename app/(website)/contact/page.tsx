@@ -1,18 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { Mail, MapPin, Phone, Send, Loader2, ArrowRight, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2, Calendar, MessageSquare } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [activeTab, setActiveTab] = useState<"message" | "calendar">("message");
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "Web Development", // Default value
+    subject: "Web Development",
     message: "",
   });
+
+  // --- CAL.COM INITIALIZATION ---
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark" // Force dark theme to match site
+      });
+    })();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,7 +80,7 @@ export default function ContactPage() {
             Let&apos;s build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">legendary.</span>
           </h1>
           <p className="text-lg text-gray-400">
-            Ready to scale? Drop us a line and let's discuss how we can transform your digital presence.
+            Ready to scale? Drop us a line or book a call to discuss your digital transformation.
           </p>
         </div>
 
@@ -94,8 +109,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">Visit us</h3>
                   <p className="text-gray-400 text-sm mb-3">Come say hello at our office HQ.</p>
-                  <p className="text-white font-medium">Office No 214, Konark Business Centre,
-Mundhwa, Pune, India</p>
+                  <p className="text-white font-medium">Office No 214, Konark Business Centre, Mundhwa, Pune, India</p>
                 </div>
               </div>
             </div>
@@ -114,101 +128,163 @@ Mundhwa, Pune, India</p>
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
-          <div className="bg-[#121723] border border-white/10 p-8 md:p-10 rounded-[2rem] relative overflow-hidden shadow-2xl">
+          {/* Right Column: Interaction Area */}
+          <div className="flex flex-col gap-6">
             
-            {success ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="h-[500px] flex flex-col items-center justify-center text-center"
+            {/* Toggle Switch */}
+            <div className="bg-[#121723] p-1.5 rounded-xl border border-white/10 flex relative">
+              <button 
+                onClick={() => setActiveTab("message")}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all relative z-10 ${activeTab === 'message' ? 'text-black' : 'text-gray-400 hover:text-white'}`}
               >
-                <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-6 ring-4 ring-green-500/10">
-                  <CheckCircle2 size={40} />
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Message Sent!</h3>
-                <p className="text-gray-400 max-w-sm mx-auto mb-8">
-                  Thanks for reaching out. We've received your inquiry and will get back to you within 24 hours.
-                </p>
-                <button 
-                  onClick={() => setSuccess(false)}
-                  className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors text-sm font-medium"
-                >
-                  Send another message
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Name</label>
-                    <input 
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all placeholder:text-gray-700"
-                      placeholder="John Doe"
+                <MessageSquare size={16} /> Send Message
+              </button>
+              <button 
+                onClick={() => setActiveTab("calendar")}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all relative z-10 ${activeTab === 'calendar' ? 'text-black' : 'text-gray-400 hover:text-white'}`}
+              >
+                <Calendar size={16} /> Book a Call
+              </button>
+              
+              {/* Sliding Background */}
+              <motion.div 
+                className="absolute top-1.5 bottom-1.5 bg-orange-500 rounded-lg z-0"
+                initial={false}
+                animate={{
+                  left: activeTab === 'message' ? '0.375rem' : '50%',
+                  width: 'calc(50% - 0.375rem)',
+                  x: activeTab === 'calendar' ? '0.375rem' : 0
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            </div>
+
+            {/* Content Container */}
+            <div className="bg-[#121723] border border-white/10 rounded-[2rem] relative overflow-hidden shadow-2xl min-h-[600px]">
+              <AnimatePresence mode="wait">
+                
+                {/* --- TAB 1: FORM --- */}
+                {activeTab === "message" && (
+                  <motion.div 
+                    key="message"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="p-8 md:p-10 h-full"
+                  >
+                    {success ? (
+                      <div className="h-full flex flex-col items-center justify-center text-center">
+                        <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-6 ring-4 ring-green-500/10">
+                          <CheckCircle2 size={40} />
+                        </div>
+                        <h3 className="text-3xl font-bold text-white mb-4">Message Sent!</h3>
+                        <p className="text-gray-400 max-w-sm mx-auto mb-8">
+                          Thanks for reaching out. We've received your inquiry and will get back to you within 24 hours.
+                        </p>
+                        <button 
+                          onClick={() => setSuccess(false)}
+                          className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors text-sm font-medium"
+                        >
+                          Send another message
+                        </button>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Name</label>
+                            <input 
+                              name="name"
+                              required
+                              value={formData.name}
+                              onChange={handleChange}
+                              className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all placeholder:text-gray-700"
+                              placeholder="John Doe"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Email</label>
+                            <input 
+                              name="email"
+                              type="email"
+                              required
+                              value={formData.email}
+                              onChange={handleChange}
+                              className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all placeholder:text-gray-700"
+                              placeholder="john@company.com"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Subject</label>
+                          <div className="relative">
+                            <select 
+                              name="subject"
+                              value={formData.subject}
+                              onChange={handleChange}
+                              className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all appearance-none cursor-pointer"
+                            >
+                              <option value="Web Development">Web Development</option>
+                              <option value="Mobile App">Mobile App</option>
+                              <option value="Design System">Design System</option>
+                              <option value="SEO & Marketing">SEO & Marketing</option>
+                              <option value="Other">Other</option>
+                            </select>
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Message</label>
+                          <textarea 
+                            name="message"
+                            required
+                            rows={5}
+                            value={formData.message}
+                            onChange={handleChange}
+                            className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all placeholder:text-gray-700 resize-none"
+                            placeholder="Tell us about your project goals..."
+                          />
+                        </div>
+
+                        <button 
+                          type="submit" 
+                          disabled={loading}
+                          className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-4 rounded-xl transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2 hover:scale-[1.02] active:scale-[0.98]"
+                        >
+                          {loading ? <Loader2 className="animate-spin" /> : <Send size={20} />}
+                          {loading ? "Sending..." : "Send Message"}
+                        </button>
+                      </form>
+                    )}
+                  </motion.div>
+                )}
+
+                {/* --- TAB 2: CALENDAR --- */}
+                {activeTab === "calendar" && (
+                  <motion.div 
+                    key="calendar"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full min-h-[600px] p-2"
+                  >
+                    <Cal 
+                        namespace="30min"
+                        calLink="aitek-media/30min"
+                        style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                        config={{ layout: "month_view", theme: "dark" }}
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Email</label>
-                    <input 
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all placeholder:text-gray-700"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
+                  </motion.div>
+                )}
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Subject</label>
-                  <div className="relative">
-                    <select 
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all appearance-none cursor-pointer"
-                    >
-                      <option value="Web Development">Web Development</option>
-                      <option value="Mobile App">Mobile App</option>
-                      <option value="Design System">Design System</option>
-                      <option value="SEO & Marketing">SEO & Marketing</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Message</label>
-                  <textarea 
-                    name="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full bg-[#070B12] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all placeholder:text-gray-700 resize-none"
-                    placeholder="Tell us about your project goals..."
-                  />
-                </div>
-
-                <button 
-                  type="submit" 
-                  disabled={loading}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-4 rounded-xl transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2 hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  {loading ? <Loader2 className="animate-spin" /> : <Send size={20} />}
-                  {loading ? "Sending..." : "Send Message"}
-                </button>
-              </form>
-            )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

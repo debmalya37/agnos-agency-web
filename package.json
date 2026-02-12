@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@calcom/atoms": "^2.3.5",
+    "@calcom/embed-react": "^1.5.3",
     "@floating-ui/dom": "^1.7.5",
     "@google/generative-ai": "^0.24.1",
     "@tiptap/extension-color": "^3.18.0",

@@ -2,7 +2,9 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+// 1. Import Cal.com API
+import { getCalApi } from "@calcom/embed-react"; 
 
 const PLANS = [
   {
@@ -65,6 +67,40 @@ export default function PlansSection() {
   const [isDesktop, setIsDesktop] = useState(false);
   const x = useMotionValue(0);
 
+  // --- CAL.COM SETUP ---
+  const CAL_NAMESPACE = "30min";
+  const CAL_LINK = "aitek-media/30min";
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: CAL_NAMESPACE });
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: "dark"
+      });
+    })();
+  }, []);
+
+  // --- BOOKING HANDLER ---
+  const handleBookPlan = async (title: string, cost: string) => {
+    const cal = await getCalApi({ namespace: CAL_NAMESPACE });
+    
+    // Create a specific note for this booking
+    const noteText = `I am interested in the ${title} plan (${cost}).`;
+    
+    // Append params to the link to pre-fill the booking notes
+    const dynamicLink = `${CAL_LINK}?notes=${encodeURIComponent(noteText)}`;
+
+    cal("modal", {
+        calLink: dynamicLink,
+        config: {
+            layout: "month_view",
+            theme: "dark"
+        }
+    });
+  };
+
   // 1. Check Screen Size & Calculate Constraints
   useEffect(() => {
     const handleResize = () => {
@@ -72,17 +108,15 @@ export default function PlansSection() {
       setIsDesktop(isLarge);
 
       if (containerRef.current && !isLarge) {
-        // Only calculate scroll width for mobile slider
         const scrollWidth = containerRef.current.scrollWidth;
         const offsetWidth = containerRef.current.offsetWidth;
         setWidth(scrollWidth - offsetWidth);
       } else {
-        // Reset position on desktop
         x.set(0); 
       }
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [x]);
@@ -132,19 +166,15 @@ export default function PlansSection() {
           )}
         </div>
 
-        {/* Layout Logic:
-           - Mobile: Uses 'flex' + framer motion 'drag' to slide.
-           - Desktop (md+): Uses 'grid' + 'grid-cols-2'. Drag is disabled.
-        */}
         <motion.div 
           ref={containerRef} 
           className="cursor-grab active:cursor-grabbing md:cursor-auto"
         >
           <motion.div
-            drag={isDesktop ? false : "x"} // Disable drag on desktop
+            drag={isDesktop ? false : "x"}
             dragConstraints={{ right: 0, left: -width }}
             style={{ x }}
-            className="flex gap-6 md:grid md:grid-cols-2 md:gap-8" // Flex for slider, Grid for desktop
+            className="flex gap-6 md:grid md:grid-cols-2 md:gap-8"
           >
             {PLANS.map((plan, index) => (
               <motion.div
@@ -171,8 +201,11 @@ export default function PlansSection() {
                   ))}
                 </ul>
 
-                {/* CTA Button with Cost */}
-                <button className="w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-all duration-300 mt-auto">
+                {/* CTA Button with Cost & Booking Trigger */}
+                <button 
+                  onClick={() => handleBookPlan(plan.title, plan.cost)}
+                  className="w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-all duration-300 mt-auto hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5"
+                >
                   {plan.cost}
                 </button>
               </motion.div>
