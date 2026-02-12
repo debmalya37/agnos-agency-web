@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ArrowRight, Facebook, Instagram, Linkedin, X, Check } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -61,9 +62,9 @@ export default function Footer() {
               <h2 className="text-4xl md:text-5xl font-medium text-[#0B1220] leading-[1.1] mb-8 tracking-tight">
                 Ready to start <br /> your next project?
               </h2>
-              <button className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
+              <Link href="/contact" className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
                 Get started
-              </button>
+              </Link>
             </div>
 
             {/* Right: Booking Widget */}
@@ -90,9 +91,9 @@ export default function Footer() {
                  <h3 className="text-lg font-medium text-[#0B1220]">Quick 15-minute call</h3>
                  <p className="text-sm text-gray-500 font-medium mb-6">Pick a time that works for you.</p>
 
-                 <button className="w-full bg-[#FF6B2C] text-white py-3 rounded-xl font-medium text-sm hover:bg-[#e85a1f] transition-all">
+                 <Link href="/contact" className="w-full p-5 bg-[#FF6B2C] text-white py-3 rounded-xl font-medium text-sm hover:bg-[#e85a1f] transition-all">
                     Book a free call
-                 </button>
+                 </Link>
 
                  {/* Floating Cursor Tag */}
                  <div className="absolute -right-4 top-1/2 bg-[#000000] text-white text-[10px] font-medium px-2 py-1 rounded shadow-lg flex items-center gap-1 -rotate-6">
