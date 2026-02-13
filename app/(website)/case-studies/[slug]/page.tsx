@@ -94,7 +94,7 @@ export default async function CaseStudyDetailsPage({ params }: Props) {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-[1.05] tracking-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium mb-6 leading-[1.05] tracking-tight">
             {caseStudy.title}
           </h1>
 

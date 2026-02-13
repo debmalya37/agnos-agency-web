@@ -29,7 +29,7 @@ export const SERVICES_DATA: Record<string, any> = {
     },
     features: [
       { title: "Design", desc: "Premium UI/UX that aligns with your brand identity." },
-      { title: "Build", desc: "Clean, scalable code using Next.js and Tailwind." },
+      { title: "Build", desc: "Clean, scalable code using Next.js and Tailwind., no-code websites" },
       { title: "Strategy", desc: "Conversion-focused layouts to maximize ROI." }
     ],
     audience: {
