@@ -219,7 +219,7 @@ export default async function CaseStudyDetailsPage({ params }: Props) {
       </div>
 
       {/* 5. CTA SECTION */}
-      <section className="relative py-28 px-6 overflow-hidden">
+      {/* <section className="relative py-28 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_20%_10%,rgba(255,255,255,0.15),transparent_60%)] z-0" />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-multiply z-0" />
@@ -247,7 +247,7 @@ export default async function CaseStudyDetailsPage({ params }: Props) {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* FOOTER */}
       {/* <footer className="bg-[#050912] py-12 px-6 border-t border-gray-900 relative z-10">
