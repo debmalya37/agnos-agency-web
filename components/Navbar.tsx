@@ -42,7 +42,7 @@ export default function Navbar() {
             href="/contact"
             className="bg-black text-white px-5 py-2 rounded-lg hover:bg-gray-800 transition-all"
           >
-            Get started
+            Book a Strategy Call
           </Link>
         </div>
 
@@ -66,7 +66,7 @@ export default function Navbar() {
             className="bg-black text-white text-center py-3 rounded-xl"
             onClick={() => setIsOpen(false)}
           >
-            Get started
+            Book a Strategy Call
           </Link>
         </div>
       )}
