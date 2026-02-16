@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Check, Flame } from "lucide-react";
+import Link from "next/link";
 
 export default function GrowthPartner() {
   return (
@@ -69,9 +70,9 @@ export default function GrowthPartner() {
               </ul>
 
               {/* CTA Button */}
-              <button className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm hover:bg-black transition-all shadow-lg relative z-10 w-full md:w-auto">
+              <Link href="/contact" className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm hover:bg-black transition-all shadow-lg relative z-10 w-full md:w-auto">
                 Start your project
-              </button>
+              </Link>
 
               {/* Decorative Flame Icon */}
               <div className="absolute -bottom-4 -right-4 text-orange-600/20 rotate-12 pointer-events-none">

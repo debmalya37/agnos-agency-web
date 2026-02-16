@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Paintbrush, Layout, Code2, Cpu, Megaphone } from "lucide-react";
+import Link from "next/link";
 
 const services = [
   {
@@ -44,9 +45,9 @@ export default function ServicesSection() {
           
           <div className="relative inline-flex items-center">
 
-            <button className="relative z-10 bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-lg shadow-xl shadow-orange-900/10 hover:bg-[#e85a1f] transition-all">
+            <Link href="/contact" className="relative z-10 bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-lg shadow-xl shadow-orange-900/10 hover:bg-[#e85a1f] transition-all">
   Discuss your ideas
-</button>
+</Link>
 
             {/* Hand-drawn arrow effect */}
             <div className="absolute left-full ml-0 top-2 hidden md:flex flex-row row-auto items-start z-20 pointer-events-none">

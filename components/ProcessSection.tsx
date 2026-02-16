@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 /* ---------------- DATA ---------------- */
 /* ---------------- DATA ---------------- */
@@ -127,9 +128,9 @@ function Semicircle({ active }: { active: number }) {
             {step.tags}
           </p>
 
-          <button className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-sm shadow-xl shadow-orange-200 pointer-events-auto hover:bg-[#e85a1f] transition-all transform hover:scale-105">
+          <Link href="/contact" className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-sm shadow-xl shadow-orange-200 pointer-events-auto hover:bg-[#e85a1f] transition-all transform hover:scale-105">
             Start your project
-          </button>
+          </Link>
 
           {/* Progress Dots */}
           <div className="mt-12 flex gap-3">

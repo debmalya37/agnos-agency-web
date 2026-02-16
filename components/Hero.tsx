@@ -177,16 +177,16 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <div className="relative group">
-            <button className="bg-[#FF6B2C] text-white px-10 py-5 rounded-2xl font-medium hover:bg-[#e85a1f] transition-all shadow-xl shadow-orange-900/10 text-lg">
+            <Link href="/contact" className="bg-[#FF6B2C] text-white px-10 py-5 rounded-2xl font-medium hover:bg-[#e85a1f] transition-all shadow-xl shadow-orange-900/10 text-lg">
               Book A Strategy Call
-            </button>
+            </Link>
             <Link href="/contact" className="absolute -bottom-10 left-0 w-full text-center text-xs italic text-[#FF6B2C] font-semibold animate-pulse">
               Schedule a free call now ↗
             </Link>
           </div>
-          <button className="bg-[#afafaf] text-black px-10 py-5 rounded-2xl font-medium hover:bg-[#1a1a1a] transition-all text-lg shadow-xl shadow-black/10">
+          <Link href="/services/web-development" className="bg-[#afafaf] text-black px-10 py-5 rounded-2xl font-medium hover:bg-[#1a1a1a] transition-all text-lg shadow-xl shadow-black/10">
             View Solutions
-          </button>
+          </Link>
         </motion.div>
       </div>
 

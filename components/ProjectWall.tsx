@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const projectImages = [
   "https://media.istockphoto.com/id/1409958226/photo/paper-production-machine-in-wastepaper-recycling-factory-paper-and-pulp-mill.jpg?s=612x612&w=0&k=20&c=CeyKPRWuzUHFxjj4hBm6ncXfHEEFH4es8-5ZMad8jbw=",
@@ -65,9 +66,9 @@ export default function ProjectWall() {
             Worked with 30+ Precious Clients
           </h2>
 
-          <button className="bg-orange-600 text-white px-4 py-3 md:px-4 md:py-2 rounded-full font-light text-sm md:text-[16px] hover:bg-orange-600 transition-all shadow-xl shadow-orange-100">
+          <Link href="/case-studies" className="bg-orange-600 text-white px-4 py-3 md:px-4 md:py-2 rounded-full font-light text-sm md:text-[16px] hover:bg-orange-600 transition-all shadow-xl shadow-orange-100">
             See Project Work
-          </button>
+          </Link>
         </motion.div>
       </div>
 

@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Star } from "lucide-react";
+import Link from "next/link";
 
 const otherAgencies = [
   "Slow, unclear timelines",
@@ -165,9 +166,9 @@ export default function ComparisonSection() {
 
         {/* ---------- FOOTER CTA ---------- */}
         <div className="mt-20 w-full max-w-4xl flex flex-col md:flex-row items-center justify-between gap-8">
-          <button className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-lg hover:bg-[#e85a1f] transition-all shadow-xl">
+          <Link href="/case-studies" className="bg-[#FF6B2C] text-white px-10 py-4 rounded-2xl font-medium text-lg hover:bg-[#e85a1f] transition-all shadow-xl">
             Know our story
-          </button>
+          </Link>
 
           <div className="flex items-center gap-6">
             <div className="flex -space-x-3">
