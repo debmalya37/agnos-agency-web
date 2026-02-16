@@ -170,7 +170,7 @@ export default function PlansSection() {
                   <h3 className="text-lg font-medium text-white mb-2">{plan.title}</h3>
                   <div className="flex items-baseline gap-1 mb-4">
                       <span className="text-sm text-gray-500 font-medium">Starting from</span>
-                      <span className="text-3xl font-bold text-white tracking-tight">{plan.cost}</span>
+                      <span className="text-lg font-bold text-gray-400 tracking-tight"> {plan.cost}</span>
                   </div>
                   <p className="text-gray-400 text-sm leading-relaxed border-t border-white/10 pt-4">
                     {plan.desc}
