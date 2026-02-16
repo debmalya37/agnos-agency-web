@@ -1,16 +1,14 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, animate } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
-// 1. Import Cal.com API
-import { getCalApi } from "@calcom/embed-react"; 
+import React, { useRef, useEffect } from "react";
+import { Check, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { getCalApi } from "@calcom/embed-react";
 
 const PLANS = [
   {
     title: "Landing Page",
-    desc: "For startups launching products, testing offers, or validating ideas fast without waiting weeks.",
-    cost: "Starting from ₹15k",
+    desc: "Launch products and validate ideas fast without the wait.",
+    cost: "₹15k",
     features: [
       "Strategy & discovery session",
       "Conversion copywriting",
@@ -22,8 +20,8 @@ const PLANS = [
   },
   {
     title: "Business Website",
-    desc: "For agencies and consultants needing a professional digital presence that builds trust and authority.",
-    cost: "Starting from ₹25k",
+    desc: "Build trust and authority with a professional digital presence.",
+    cost: "₹25k",
     features: [
       "Strategy & discovery session",
       "Up to 5-6 pages",
@@ -32,11 +30,12 @@ const PLANS = [
       "Lead generation forms",
       "48-hour response time",
     ],
+    popular: true, 
   },
   {
     title: "E-commerce Website",
-    desc: "For businesses that need a robust online store that actually converts browsers into buyers.",
-    cost: "Starting from ₹40k",
+    desc: "A robust online store designed to convert browsers into buyers.",
+    cost: "₹40k",
     features: [
       "Shopify or WooCommerce setup",
       "Product catalog migration",
@@ -48,8 +47,8 @@ const PLANS = [
   },
   {
     title: "Web / Mobile App",
-    desc: "Full-stack web or mobile applications tailored to complex business logic and user needs.",
-    cost: "Starting from ₹75k",
+    desc: "Tailored full-stack applications for complex business needs.",
+    cost: "₹75k",
     features: [
       "System architecture design",
       "React Native or Next.js",
@@ -62,14 +61,11 @@ const PLANS = [
 ];
 
 export default function PlansSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const x = useMotionValue(0);
-
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
   // --- CAL.COM SETUP ---
   const CAL_NAMESPACE = "30min";
-  const CAL_LINK = "aitek-media/30min";
+  const CAL_LINK = "aitekmedia/30min";
 
   useEffect(() => {
     (async function () {
@@ -82,145 +78,138 @@ export default function PlansSection() {
     })();
   }, []);
 
-  // --- BOOKING HANDLER ---
   const handleBookPlan = async (title: string, cost: string) => {
     const cal = await getCalApi({ namespace: CAL_NAMESPACE });
-    
-    // Create a specific note for this booking
-    const noteText = `I am interested in the ${title} plan (${cost}).`;
-    
-    // Append params to the link to pre-fill the booking notes
+    const noteText = `I am interested in the ${title} plan (Starting at ${cost}).`;
     const dynamicLink = `${CAL_LINK}?notes=${encodeURIComponent(noteText)}`;
 
     cal("modal", {
         calLink: dynamicLink,
-        config: {
-            layout: "month_view",
-            theme: "dark"
-        }
+        config: { layout: "month_view", theme: "dark" }
     });
   };
 
-  // 1. Check Screen Size & Calculate Constraints
-  useEffect(() => {
-    const handleResize = () => {
-      const isLarge = window.innerWidth >= 768;
-      setIsDesktop(isLarge);
-
-      if (containerRef.current && !isLarge) {
-        const scrollWidth = containerRef.current.scrollWidth;
-        const offsetWidth = containerRef.current.offsetWidth;
-        setWidth(scrollWidth - offsetWidth);
-      } else {
-        x.set(0); 
-      }
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [x]);
-
-  // Mobile Slide Logic
-  const slide = (direction: "left" | "right") => {
-    if (isDesktop) return; 
-    const currentX = x.get();
-    const cardWidth = 340; 
-    let newX = direction === "left" ? currentX + cardWidth : currentX - cardWidth;
-
-    if (newX > 0) newX = 0;
-    if (newX < -width) newX = -width;
-
-    animate(x, newX, { type: "spring", stiffness: 300, damping: 30 });
+  // --- SCROLL HANDLER FOR ARROWS ---
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const scrollAmount = direction === "left" ? -340 : 340; // Approx card width
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
   };
 
   return (
-    <section className="bg-black py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="bg-black py-24 relative overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#FF6B2C]/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Plans</h2>
-            <p className="text-gray-400 max-w-xl">
-              Let's see how we can fix the issues that are holding you back from driving more revenue today!
-            </p>
-          </div>
-          
-          {/* Navigation Buttons (Only visible on Mobile now) */}
-          {!isDesktop && (
-            <div className="flex gap-3 self-end md:hidden">
-              <button
-                onClick={() => slide("left")}
-                className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center text-white hover:bg-gray-900 transition-colors"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={() => slide("right")}
-                className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200 transition-colors"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-          )}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF9A5C] mb-4">Transparent Pricing</p>
+          <h2 className="text-4xl md:text-5xl font-medium text-white mb-6 leading-tight">
+            Invest in <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Growth.</span>
+          </h2>
+          <p className="text-gray-400 text-lg">
+            No hidden fees. No surprises. Just clear, milestone-based pricing designed to get you ROI faster.
+          </p>
         </div>
 
-        <motion.div 
-          ref={containerRef} 
-          className="cursor-grab active:cursor-grabbing md:cursor-auto"
+          {/* Mobile Arrows (Visible only on Mobile/Tablet) */}
+          <div className="flex gap-3 justify-center lg:hidden">
+            <button 
+              onClick={() => scroll("left")}
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors active:scale-95"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button 
+              onClick={() => scroll("right")}
+              className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200 transition-colors active:scale-95"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Cards Container 
+           - Added `pt-12` to prevent badge cropping
+           - Attached `ref` for buttons to work
+        */}
+        <div 
+          ref={scrollContainerRef}
+          className="
+            flex gap-6 overflow-x-auto snap-x snap-mandatory pt-12 pb-8 
+            lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:pt-6 lg:pb-0
+            scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0
+          "
         >
-          <motion.div
-            drag={isDesktop ? false : "x"}
-            dragConstraints={{ right: 0, left: -width }}
-            style={{ x }}
-            className="flex gap-6 md:grid md:grid-cols-2 md:gap-8"
-          >
-            {PLANS.map((plan, index) => (
-              <motion.div
-                key={index}
-                className="min-w-[300px] md:min-w-0 bg-[#0E0E0E] border border-gray-800 rounded-3xl p-8 flex flex-col hover:border-gray-700 transition-colors h-full"
-              >
-                {/* Card Header */}
+          {PLANS.map((plan, index) => (
+            <div
+              key={index}
+              className={`
+                relative flex-shrink-0 w-[85vw] sm:w-[360px] lg:w-auto
+                snap-center flex flex-col h-full rounded-[32px] p-1 
+                ${plan.popular 
+                  ? "bg-gradient-to-b from-[#FF6B2C]/40 to-white/5" 
+                  : "bg-white/5 border border-white/5"}
+              `}
+            >
+              {/* Popular Tag - Now won't be cropped due to container padding */}
+              {plan.popular && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FF6B2C] text-black text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg z-20 flex items-center gap-1 whitespace-nowrap">
+                  <Sparkles size={10} /> Most Popular
+                </div>
+              )}
+
+              <div className="bg-[#0E0E0E] rounded-[30px] p-8 flex flex-col h-full relative overflow-hidden">
+                {/* Card Content */}
                 <div className="mb-8">
-                  <h3 className="text-xl font-bold text-white mb-3">{plan.title}</h3>
-                  <div className="bg-[#1A1A1A] rounded-xl p-4 min-h-[80px] flex items-center">
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {plan.desc}
-                    </p>
+                  <h3 className="text-lg font-medium text-white mb-2">{plan.title}</h3>
+                  <div className="flex items-baseline gap-1 mb-4">
+                      <span className="text-sm text-gray-500 font-medium">Starting from</span>
+                      <span className="text-3xl font-bold text-white tracking-tight">{plan.cost}</span>
                   </div>
+                  <p className="text-gray-400 text-sm leading-relaxed border-t border-white/10 pt-4">
+                    {plan.desc}
+                  </p>
                 </div>
 
-                {/* Features List */}
+                {/* Features */}
                 <ul className="space-y-4 mb-8 flex-grow">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <Check className="text-white w-5 h-5 shrink-0 mt-0.5" strokeWidth={3} />
-                      <span className="text-gray-300 text-sm font-medium">{feature}</span>
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                      <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${plan.popular ? "bg-[#FF6B2C]/20 text-[#FF6B2C]" : "bg-white/10 text-gray-400"}`}>
+                        <Check className="w-3 h-3" strokeWidth={3} />
+                      </div>
+                      <span className="leading-snug">{feature}</span>
                     </li>
                   ))}
                 </ul>
 
-                {/* CTA Button with Cost & Booking Trigger */}
+                {/* CTA Button */}
                 <button 
                   onClick={() => handleBookPlan(plan.title, plan.cost)}
-                  className="w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-all duration-300 mt-auto hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5"
+                  className={`
+                    w-full py-4 rounded-2xl text-sm font-bold transition-all duration-300 shadow-lg mt-auto
+                    ${plan.popular 
+                      ? "bg-[#FF6B2C] text-black hover:bg-[#ff854f] hover:shadow-[#FF6B2C]/25" 
+                      : "bg-white text-black hover:bg-gray-200"}
+                  `}
                 >
-                  {plan.cost}
+                  Book A Strategy Call
                 </button>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {/* Mobile Indicator / Hint */}
-        {!isDesktop && (
-          <div className="mt-8 flex justify-center gap-2 md:hidden">
-            {PLANS.map((_, i) => (
-              <div key={i} className="w-2 h-2 rounded-full bg-gray-800" />
-            ))}
-          </div>
-        )}
+        <div className="mt-4 flex justify-center gap-2 lg:hidden text-xs text-gray-600 font-medium">
+           <span className="opacity-50">Swipe to compare plans</span>
+        </div>
 
       </div>
     </section>

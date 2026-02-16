@@ -276,7 +276,7 @@ export default function ContactPage() {
                   >
                     <Cal 
                         namespace="30min"
-                        calLink="aitek-media/30min"
+                        calLink="aitekmedia/30min"
                         style={{ width: "100%", height: "100%", overflow: "scroll" }}
                         config={{ layout: "month_view", theme: "dark" }}
                     />

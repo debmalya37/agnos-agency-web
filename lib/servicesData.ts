@@ -4,18 +4,10 @@ export const SERVICES_DATA: Record<string, any> = {
   "web-development": {
     title: "Web Development",
     hero: {
-      headline: "High-Performance Websites Built To Convert Visitors Into Enquiries",
-      subheadline: "We design and build custom websites focused on speed, SEO, and conversion rates. Stop losing customers to slow, ugly sites.",
-      cta: "Book a Private Website Consultation",
+      headline: "We build high-performance websites for businesses to make more revenue.",
+      subheadline: "We design & develop business websites, e-commerce stores & marketing assets that drive qualified leads & sales without hiring a full in-house team.",
+      cta: "Book A Strategy Call",
       trustText: "Trusted by serious founders across India & UK"
-    },
-    showcase: {
-      title: "Websites That Instantly Signal Trust & Status",
-      subtitle: "The world treats you differently when you look the part.",
-      images: [
-        "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80", // Desktop mockup
-        "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&q=80"  // Mobile mockup
-      ]
     },
     painPoint: {
       title: "Most Websites Look Fine But Don't Sell",
@@ -28,14 +20,54 @@ export const SERVICES_DATA: Record<string, any> = {
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
     },
     features: [
-      { title: "Design", desc: "Premium UI/UX that aligns with your brand identity." },
-      { title: "Build", desc: "Clean, scalable code using Next.js and Tailwind., no-code websites" },
-      { title: "Strategy", desc: "Conversion-focused layouts to maximize ROI." }
+      { title: "Diagnose", desc: "Audit gaps, goals, and growth opportunities." },
+      { title: "Design", desc: "Plan structure, journey, and conversion flow." },
+      { title: "Build", desc: "Develop and integrate your growth system." },
+      { title: "Launch", desc: "Deploy, test, and activate your platform." },
+      { title: "Scale", desc: "Drive traffic, leads, and measurable growth." }
     ],
     audience: {
       forYou: ["You value brand perception", "You want higher conversion rates", "You are ready to scale"],
       notForYou: ["You want a $50 template", "You don't care about mobile users", "You want a quick fix"]
-    }
+    },
+    showcase: {
+      title: "Websites That Instantly Signal Trust & Status",
+      subtitle: "The world treats you differently when you look the part.",
+      images: [
+        "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80", // Desktop mockup
+        "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&q=80"  // Mobile mockup
+      ]
+    },
+    faqs: [
+      {
+        question: "How much does a typical website or growth foundation cost?",
+        answer: "Pricing depends on your business stage, features, and integrations, but we share clear milestone-based costs after understanding your exact requirements and goals."
+      },
+      {
+        question: "How long does it take to design and launch the website?",
+        answer: "Most growth foundation websites go live within a few weeks, depending on project scope, revisions, and content readiness from your side."
+      },
+      {
+        question: "Will this website actually help generate leads or sales?",
+        answer: "Yes — we build websites as growth systems with conversion flow, tracking, and lead capture so they actively support your marketing and revenue goals."
+      },
+      {
+        question: "Do you also help with marketing and scaling after launch?",
+        answer: "Absolutely. Once the foundation is live, we support growth through paid ads, content, SEO, and automation to drive consistent traffic and conversions."
+      },
+      {
+        question: "Can you redesign or upgrade our existing website instead of building from scratch?",
+        answer: "Yes. We can audit and upgrade your current website, improving design, performance, and conversion structure without unnecessary rebuilding."
+      },
+      {
+        question: "Will I be able to manage and update the website after launch?",
+        answer: "Yes. We build user-friendly systems and provide training so your team can easily manage content, products, and updates independently."
+      },
+      {
+        question: "Do you work with startups or only established businesses?",
+        answer: "We work best with businesses that are ready to grow digitally, whether you're launching, scaling, or upgrading your current online presence."
+      }
+    ]
   },
 
   "marketing": {

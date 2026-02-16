@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useRef, useEffect, use } from "react";
+import React, { useRef, useEffect, use, useState } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Check, X, PlayCircle, ArrowRight } from "lucide-react";
+import { Check, X, PlayCircle, ArrowRight, Minus, Plus } from "lucide-react";
 import { SERVICES_DATA } from "@/lib/servicesData";
-import { motion, useScroll, useTransform, useInView, Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
 import PlansSection from "@/components/PlansSection";
 import { getCalApi } from "@calcom/embed-react";
 import Link from "next/link";
 
 // --- CONFIGURATION ---
 const CAL_NAMESPACE = "30min"; 
-const CAL_LINK = "aitek-media/30min"; 
+const CAL_LINK = "aitekmedia/30min"; 
 
 // --- ANIMATION CONSTANTS ---
 // "Luxury" Easing for smooth UI (similar to iOS/macOS)
@@ -68,6 +68,82 @@ const TitleReveal = ({ text, className }: { text: string; className?: string }) 
         </span>
       ))}
     </motion.h1>
+  );
+};
+
+// --- COMPONENT: STYLISH FAQ SECTION ---
+const FAQSection = ({ faqs }: { faqs: { question: string; answer: string }[] }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      {/* Header */}
+      <ScrollReveal className="mb-16 text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C] mb-4">Support</p>
+        <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl">
+          Questions? We&apos;ve got answers.
+        </h2>
+      </ScrollReveal>
+      
+      {/* FAQ Grid */}
+      <div className="grid gap-4">
+        {faqs.map((faq, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <ScrollReveal key={i} delay={i * 0.05} className="w-full">
+              <motion.div 
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                className={`group relative w-full cursor-pointer overflow-hidden rounded-[24px] border transition-all duration-500 ease-out
+                  ${isOpen 
+                    ? "bg-[#141414] border-[#FF6B2C]/40 shadow-[0_0_30px_-10px_rgba(255,107,44,0.15)]" 
+                    : "bg-[#0A0A0A] border-white/5 hover:border-white/10 hover:bg-[#111]"
+                  }
+                `}
+              >
+                {/* Active Indicator Line */}
+                <motion.div 
+                  initial={false}
+                  animate={{ height: isOpen ? "100%" : "0%" }}
+                  className="absolute left-0 top-0 w-1 bg-[#FF6B2C]"
+                />
+
+                <div className="flex items-center justify-between gap-6 px-6 py-6 sm:px-8">
+                  <h3 className={`text-lg font-medium leading-snug transition-colors duration-300 ${isOpen ? "text-white" : "text-gray-300 group-hover:text-white"}`}>
+                    {faq.question}
+                  </h3>
+                  
+                  {/* Animated Icon */}
+                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                    isOpen 
+                      ? "bg-[#FF6B2C] border-[#FF6B2C] text-black rotate-180 scale-110" 
+                      : "border-white/10 bg-white/5 text-gray-400 group-hover:border-white/30 group-hover:text-white"
+                  }`}>
+                    {isOpen ? <Minus size={18} strokeWidth={3} /> : <Plus size={18} />}
+                  </span>
+                </div>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                    >
+                      <div className="px-6 pb-8 sm:px-8 pt-0">
+                        <p className="text-base leading-relaxed text-gray-400 max-w-2xl">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </ScrollReveal>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -127,9 +203,9 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
   const surface = "rounded-[28px] border border-white/10 bg-[#141414] shadow-xl hover:border-white/20 transition-colors duration-500 will-change-transform";
 
   const videoTestimonials = [
-    { name: "Aarav Malhotra", role: "CEO, FinEdge", summary: "Revenue lift in 90 days", image: service.showcase.images[0] },
-    { name: "Riya Kapoor", role: "VP Growth, NovaPay", summary: "Pipeline velocity +38%", image: service.showcase.images[1] },
-    { name: "Daniel Moore", role: "Founder, Calibrate", summary: "Launch quality at scale", image: service.painPoint.image },
+    { name: "Mr. Ejaas Ellias", role: "Marketing Head, Staybnb", summary: "Build brand credibility & search traffic ", image: service.showcase.images[0] },
+    { name: "Mr. Debayan Sen", role: "MD, Avinia", summary: "Online Visibility Foundation Revamp", image: service.showcase.images[1] },
+    { name: "Mr. Prabhat Tiwari", role: "Director, Switchsol", summary: "Lead Generation Business Website", image: service.painPoint.image },
   ];
 
   return (
@@ -162,7 +238,7 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
             {/* Animated H1 */}
             <TitleReveal 
               text={service.hero.headline} 
-              className="text-5xl font-medium leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl justify-center lg:justify-start" 
+              className="text-4xl font-medium leading-[1.1] tracking-tight sm:text-5xl lg:text-5xl justify-center lg:justify-start" 
             />
             
             <motion.p 
@@ -245,73 +321,6 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      {/* ---------------- SECTION 2: SHOWCASE ---------------- */}
-      <section className={`${sectionPadding} bg-[#0E0E0E]`}>
-        <div className={container}>
-          <ScrollReveal className="mb-20 text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl tracking-tight">
-              {service.showcase.title}
-            </h2>
-            <p className="mt-6 text-lg text-gray-400 leading-relaxed">{service.showcase.subtitle}</p>
-          </ScrollReveal>
-
-          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            
-            {/* Features List */}
-            <ScrollReveal className={`${surface} p-10 text-left relative overflow-hidden group`}>
-              <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B2C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C]">Positioning</p>
-              <h3 className="mt-6 text-3xl font-medium text-white">Make your brand feel inevitable.</h3>
-              <p className="mt-4 text-base text-gray-300 leading-relaxed">
-                We craft experiences that earn attention, signal credibility, and drive action across every channel.
-              </p>
-              
-              <div className="mt-8 space-y-4 text-sm text-gray-300">
-                {["Executive-grade creative direction", "Conversion-first layouts and messaging", "Consistent, premium visual systems"].map((item) => (
-                  <div key={item} className="flex items-start gap-4">
-                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#FF9A5C]/20 text-[#FF9A5C]">
-                      <Check className="h-3 w-3" strokeWidth={3} />
-                    </div>
-                    <span className="font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-10 grid grid-cols-2 gap-4">
-                {[
-                  { val: "24/7", lbl: "Response" },
-                  { val: "30+", lbl: "Launches" }
-                ].map((stat) => (
-                  <div key={stat.lbl} className="rounded-2xl border border-white/10 bg-black/40 px-6 py-5 text-center">
-                    <p className="text-2xl font-bold text-white">{stat.val}</p>
-                    <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">{stat.lbl}</p>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
-
-            {/* Images Grid */}
-            <div className="grid gap-6">
-              <ScrollReveal delay={0.2} className="relative h-[280px] overflow-hidden rounded-[32px] border border-white/10 shadow-2xl sm:h-[340px]">
-                <Image src={service.showcase.images[0]} alt="Showcase 1" fill className="object-cover transition-transform duration-700 hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              </ScrollReveal>
-              
-              <div className="grid grid-cols-[1.2fr_0.8fr] gap-6">
-                <ScrollReveal delay={0.3} className="relative h-[200px] overflow-hidden rounded-[28px] border border-white/10 shadow-xl">
-                  <Image src={service.showcase.images[1]} alt="Showcase 2" fill className="object-cover transition-transform duration-700 hover:scale-105" />
-                </ScrollReveal>
-                <ScrollReveal delay={0.4} className="rounded-[28px] border border-[#FF6B2C]/20 bg-[#141414] p-6 flex flex-col justify-center">
-                  <p className="text-3xl font-bold text-white">+240%</p>
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#FF9A5C] mt-2">Conversion Lift</p>
-                </ScrollReveal>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ---------------- SECTION 3: TESTIMONIALS ---------------- */}
       <section className={sectionPadding}>
         <div className={container}>
@@ -381,7 +390,7 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
                   onClick={handleBooking}
                   className="rounded-full bg-[#FF6B2C] px-8 py-3 text-sm font-bold text-black transition hover:bg-[#ff8145] hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
                 >
-                  Book a Private Consultation
+                  Book a Strategy Call
                 </button>
               </div>
             </ScrollReveal>
@@ -398,12 +407,79 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
+      {/* ---------------- SECTION 2: SHOWCASE ---------------- */}
+      <section className={`${sectionPadding} bg-[#0E0E0E]`}>
+        <div className={container}>
+          <ScrollReveal className="mb-20 text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl tracking-tight">
+              {service.showcase.title}
+            </h2>
+            <p className="mt-6 text-lg text-gray-400 leading-relaxed">{service.showcase.subtitle}</p>
+          </ScrollReveal>
+
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            
+            {/* Features List */}
+            <ScrollReveal className={`${surface} p-10 text-left relative overflow-hidden group`}>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B2C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C]">Positioning</p>
+              <h3 className="mt-6 text-3xl font-medium text-white">Make your brand feel inevitable.</h3>
+              <p className="mt-4 text-base text-gray-300 leading-relaxed">
+                We craft experiences that earn attention, signal credibility, and drive action across every channel.
+              </p>
+              
+              <div className="mt-8 space-y-4 text-sm text-gray-300">
+                {["Executive-grade creative direction", "Conversion-first layouts and messaging", "Consistent, premium visual systems"].map((item) => (
+                  <div key={item} className="flex items-start gap-4">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#FF9A5C]/20 text-[#FF9A5C]">
+                      <Check className="h-3 w-3" strokeWidth={3} />
+                    </div>
+                    <span className="font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-10 grid grid-cols-2 gap-4">
+                {[
+                  { val: "24/7", lbl: "Response" },
+                  { val: "30+", lbl: "Launches" }
+                ].map((stat) => (
+                  <div key={stat.lbl} className="rounded-2xl border border-white/10 bg-black/40 px-6 py-5 text-center">
+                    <p className="text-2xl font-bold text-white">{stat.val}</p>
+                    <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">{stat.lbl}</p>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+
+            {/* Images Grid */}
+            <div className="grid gap-6">
+              <ScrollReveal delay={0.2} className="relative h-[280px] overflow-hidden rounded-[32px] border border-white/10 shadow-2xl sm:h-[340px]">
+                <Image src={service.showcase.images[0]} alt="Showcase 1" fill className="object-cover transition-transform duration-700 hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              </ScrollReveal>
+              
+              <div className="grid grid-cols-[1.2fr_0.8fr] gap-6">
+                <ScrollReveal delay={0.3} className="relative h-[200px] overflow-hidden rounded-[28px] border border-white/10 shadow-xl">
+                  <Image src={service.showcase.images[1]} alt="Showcase 2" fill className="object-cover transition-transform duration-700 hover:scale-105" />
+                </ScrollReveal>
+                <ScrollReveal delay={0.4} className="rounded-[28px] border border-[#FF6B2C]/20 bg-[#141414] p-6 flex flex-col justify-center">
+                  <p className="text-3xl font-bold text-white">+240%</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#FF9A5C] mt-2">Conversion Lift</p>
+                </ScrollReveal>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ---------------- SECTION 5: WHAT'S INCLUDED ---------------- */}
       <section className={`${sectionPadding} bg-[#0E0E0E]`}>
         <div className={container}>
           <ScrollReveal className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl">What&apos;s Included</h2>
-            <p className="mt-6 text-lg text-gray-400">A senior-led, end-to-end delivery framework built for performance.</p>
+            <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl">Our Effective Work Process</h2>
+            <p className="mt-6 text-lg text-gray-400">Expert led project management and performance built framework.</p>
           </ScrollReveal>
 
           <motion.div 
@@ -477,7 +553,7 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
             </ScrollReveal>
           </div>
 
-          <ScrollReveal className="mt-20 flex flex-col items-center gap-6 rounded-[40px] border border-white/10 bg-gradient-to-b from-[#1A1A1A] to-black px-8 py-16 text-center shadow-2xl overflow-hidden relative">
+          {/* <ScrollReveal className="mt-20 flex flex-col items-center gap-6 rounded-[40px] border border-white/10 bg-gradient-to-b from-[#1A1A1A] to-black px-8 py-16 text-center shadow-2xl overflow-hidden relative">
             <div className="absolute inset-0 bg-[url('https://cdn-icons-png.flaticon.com/512/5192/5192237.png')] opacity-20 mix-blend-overlay" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#FF6B2C]/10 to-transparent pointer-events-none" />
 
@@ -498,9 +574,21 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
               </button>
             </div>
             <p className="mt-6 text-sm text-gray-500 relative z-10">Limited spots available for Q1 2026</p>
-          </ScrollReveal>
+          </ScrollReveal> */}
         </div>
       </section>
+
+      {/* ---------------- SECTION 7: FAQ ---------------- */}
+      {service.faqs && (
+        <section className={`${sectionPadding} relative`}>
+          {/* Subtle Background Glow for FAQ Section */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF6B2C]/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+          
+          <div className={container}>
+            <FAQSection faqs={service.faqs} />
+          </div>
+        </section>
+      )}
     </main>
   );
 }
