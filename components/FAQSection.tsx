@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const FAQ_DATA = [
   {
@@ -145,9 +146,9 @@ export default function FAQSection() {
           
           <h4 className="text-[#F3F3F3] font-medium text-lg mb-4">Still have questions?</h4>
           
-          <button className="bg-[#FF6B2C] text-white px-8 py-3 rounded-xl font-medium text-sm shadow-xl shadow-orange-900/10 hover:bg-[#e85a1f] hover:-translate-y-1 transition-all">
-            Let's talk
-          </button>
+          <Link href="/contact" className="bg-[#FF6B2C] text-white px-8 py-3 rounded-xl font-medium text-sm shadow-xl shadow-orange-900/10 hover:bg-[#e85a1f] hover:-translate-y-1 transition-all">
+            Let&apos;s talk
+          </Link>
         </div>
 
       </div>
