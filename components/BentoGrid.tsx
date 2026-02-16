@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { ChevronLeft, ChevronRight, House, Laptop } from "lucide-react";
 import { useInView } from "framer-motion";
+import Link from "next/link";
 
 
 const STRATEGY_SLIDES = [
@@ -207,9 +208,9 @@ const isInView = useInView(containerRef, {
  {/* --- Card 3: Discuss Project --- */}
           <div className="md:col-span-5 bg-[#FFB677] rounded-[2rem] p-10 relative overflow-hidden min-h-[380px] flex flex-col items-center text-center">
             <h3 className="text-[28px] font-medium text-[#0B1220] mb-8">Discuss your project</h3>
-            <button className="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-medium text-[15px] shadow-xl shadow-orange-900/20 relative z-10 hover:bg-[#e85a1f] transition-all">
+            <Link href="/contact" className="bg-[#FF6B2C] text-white px-8 py-4 rounded-2xl font-medium text-[15px] shadow-xl shadow-orange-900/20 relative z-10 hover:bg-[#e85a1f] transition-all">
               Schedule a call - 30 mins free
-            </button>
+            </Link>
             <p className="text-[13px] text-[#0B1220]/70 mt-4 font-semibold relative z-10">No pressure, just a thoughtful chat.</p>
             <div className="absolute bottom-0 flex gap-2 w-full justify-center px-6">
                {[1, 2, 3, 4].map((id) => (
