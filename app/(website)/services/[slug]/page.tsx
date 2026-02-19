@@ -7,6 +7,7 @@ import { Check, X, PlayCircle, ArrowRight, Minus, Plus } from "lucide-react";
 import { SERVICES_DATA } from "@/lib/servicesData";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
 import PlansSection from "@/components/PlansSection";
+import VideoTestimonialsSlider from "@/components/VideoTestimonialsSlider"; // Added Import
 import { getCalApi } from "@calcom/embed-react";
 import Link from "next/link";
 
@@ -37,7 +38,6 @@ const itemVariants: Variants = {
 };
 
 // --- COMPONENT: HERO TITLE REVEAL ---
-// Splits text into words and masks them for a premium reveal effect
 const TitleReveal = ({ text, className }: { text: string; className?: string }) => {
   const words = text.split(" ");
   
@@ -148,13 +148,12 @@ const FAQSection = ({ faqs }: { faqs: { question: string; answer: string }[] }) 
 };
 
 // --- COMPONENT: SMOOTH SCROLL WRAPPER ---
-// Handles the "In View" detection and smooth entry
 const ScrollReveal = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }} // Triggers when 100px into view, only once for performance
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: EASING, delay }}
       variants={itemVariants}
       className={className}
@@ -167,12 +166,15 @@ const ScrollReveal = ({ children, className, delay = 0 }: { children: React.Reac
 // ---------------- MAIN PAGE COMPONENT ---------------- //
 
 export default function ServiceDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
-  // 1. Next.js 15 / React 19: Unwrap params using `use`
   const { slug } = use(params);
   const service = SERVICES_DATA[slug];
 
-  // --- CAL.COM INITIALIZATION ---
+  // --- STATE FOR DB FETCHED VIDEOS ---
+  const [videos, setVideos] = useState([]);
+
+  // --- DATA FETCHING & CAL.COM INITIALIZATION ---
   useEffect(() => {
+    // 1. Init Cal.com
     (async function () {
       const cal = await getCalApi({ namespace: CAL_NAMESPACE });
       cal("ui", { 
@@ -181,6 +183,22 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
         theme: "dark"
       });
     })();
+
+    // 2. Fetch Video Testimonials from Database API
+    async function loadVideos() {
+      try {
+        const res = await fetch("/api/admin/video-testimonials");
+        if (res.ok) {
+          const data = await res.json();
+          // Optional: filter only published if your API doesn't already
+          const publishedVideos = data.filter((v: any) => v.status === "published");
+          setVideos(publishedVideos);
+        }
+      } catch (error) {
+        console.error("Failed to load video testimonials:", error);
+      }
+    }
+    loadVideos();
   }, []);
 
   const handleBooking = async () => {
@@ -198,14 +216,13 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
   const y1 = useTransform(scrollY, [0, 1000], [0, 300]); 
   const y2 = useTransform(scrollY, [0, 1000], [0, -200]); 
 
-  const sectionPadding = "px-6 py-24 relative z-10";
+  const sectionPadding = "px-6 py-12  relative z-10";
   const container = "mx-auto max-w-6xl";
   const surface = "rounded-[28px] border border-white/10 bg-[#141414] shadow-xl hover:border-white/20 transition-colors duration-500 will-change-transform";
-
-  const videoTestimonials = [
-    { name: "Mr. Ejaas Ellias", role: "Marketing Head, Staybnb", summary: "Build brand credibility & search traffic ", image: service.showcase.images[0] },
-    { name: "Mr. Debayan Sen", role: "MD, Avinia", summary: "Online Visibility Foundation Revamp", image: service.showcase.images[1] },
-    { name: "Mr. Prabhat Tiwari", role: "Director, Switchsol", summary: "Lead Generation Business Website", image: service.painPoint.image },
+    const video2Testimonials = [
+    { name: "Mr. Ejaas Ellias", link: "https://thestaybnb.com/", role: "Marketing Head, Staybnb", summary: "Build brand credibility & search traffic ", image: service.showcase.images[0] },
+    { name: "Mr. Debayan Sen", link: "https://avinia.com/", role: "MD, Avinia", summary: "Online Visibility Foundation Revamp", image: service.showcase.images[1] },
+    { name: "Mr. Prabhat Tiwari", link: "https://switchsol.co.in/", role: "Director, Switchsol", summary: "Lead Generation Business Website", image: service.painPoint.image },
   ];
 
   return (
@@ -311,99 +328,9 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
                   <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Engagement</p>
                   <p className="text-lg font-bold text-white">Strategic + Execution</p>
                 </div>
-                {/* <div className="flex items-center gap-2 rounded-full bg-[#FF6B2C] px-4 py-2 text-xs font-bold text-black shadow-lg shadow-orange-500/20">
-                  <PlayCircle className="h-4 w-4" />
-                  Proof
-                </div> */}
               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* ---------------- SECTION 3: TESTIMONIALS ---------------- */}
-      <section className={sectionPadding}>
-        <div className={container}>
-          <ScrollReveal className="mb-16 text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C]">Client Proof</p>
-            <h2 className="mt-6 text-3xl font-medium text-white sm:text-4xl lg:text-5xl">Results That Build Trust</h2>
-          </ScrollReveal>
-
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
-            variants={containerVariants}
-            className="grid gap-8 lg:grid-cols-3"
-          >
-            {videoTestimonials.map((testimonial) => (
-              <motion.div key={testimonial.name} variants={itemVariants} className={`${surface} overflow-hidden group cursor-pointer`}>
-                <div className="relative h-[240px] overflow-hidden">
-                  <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-2xl transition-all group-hover:bg-[#FF6B2C] group-hover:border-[#FF6B2C] group-hover:text-black">
-                      <PlayCircle className="h-8 w-8 ml-1 fill-current" />
-                    </motion.div>
-                  </div>
-                </div>
-                <div className="p-8">
-                  <p className="text-lg font-bold text-white">{testimonial.name}</p>
-                  <p className="text-sm text-gray-400 font-medium">{testimonial.role}</p>
-                  <div className="mt-4 pt-4 border-t border-white/10">
-                    <p className="text-sm font-bold text-[#FF9A5C] flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#FF9A5C]" />
-                      {testimonial.summary}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ---------------- SECTION 4: PAIN POINT COMPARISON ---------------- */}
-      <section className={sectionPadding}>
-        <div className={container}>
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <ScrollReveal className="rounded-[40px] border border-white/10 bg-[#121212] p-10 shadow-2xl sm:p-14 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#FF6B2C]/5 blur-[100px] rounded-full pointer-events-none" />
-              
-              <h2 className="text-2xl font-medium text-white sm:text-3xl relative z-10">{service.painPoint.title}</h2>
-              <ul className="mt-10 space-y-6 relative z-10">
-                {service.painPoint.points.map((point: string, i: number) => (
-                  <li key={i} className="flex items-start gap-4 text-gray-300">
-                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-                      <X className="h-3.5 w-3.5" strokeWidth={3} />
-                    </div>
-                    <span className="text-lg font-light">{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-12 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center relative z-10">
-                <p className="text-sm text-gray-500 font-medium">Ready to fix this?</p>
-                <button 
-                  data-cal-namespace={CAL_NAMESPACE}
-                  data-cal-link={CAL_LINK}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  onClick={handleBooking}
-                  className="rounded-full bg-[#FF6B2C] px-8 py-3 text-sm font-bold text-black transition hover:bg-[#ff8145] hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
-                >
-                  Book a Strategy Call
-                </button>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.2} className="relative h-[400px] overflow-hidden rounded-[40px] border border-white/10 shadow-2xl sm:h-[520px]">
-              <Image src={service.painPoint.image} alt="Pain Point Visual" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-10 left-10 max-w-xs">
-                <p className="text-3xl font-medium text-white">Stop guessing.</p>
-                <p className="text-gray-400 mt-2">Data-backed decisions always win.</p>
-              </div>
-            </ScrollReveal>
-          </div>
         </div>
       </section>
 
@@ -473,13 +400,11 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
       </section>
-
-      {/* ---------------- SECTION 5: WHAT'S INCLUDED ---------------- */}
-      <section className={`${sectionPadding} bg-[#0E0E0E]`}>
+      <section className={sectionPadding}>
         <div className={container}>
-          <ScrollReveal className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl">Our Effective Work Process</h2>
-            <p className="mt-6 text-lg text-gray-400">Expert led project management and performance built framework.</p>
+          <ScrollReveal className="mb-16 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C]">Client Proof</p>
+            <h2 className="mt-6 text-3xl font-medium text-white sm:text-4xl lg:text-5xl">Results That Build Trust</h2>
           </ScrollReveal>
 
           <motion.div 
@@ -487,30 +412,154 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
             whileInView="visible"
             viewport={{ once: true, margin: "-10%" }}
             variants={containerVariants}
-            className="grid gap-8 md:grid-cols-3"
+            className="grid gap-8 lg:grid-cols-3"
           >
-            {service.features.map((feature: any, i: number) => (
-              <motion.div 
-                key={i} 
-                variants={itemVariants}
-                className={`${surface} p-10 text-left hover:-translate-y-2 transition-transform duration-300`}
-              >
-                <span className="inline-block rounded-lg bg-[#FF6B2C]/10 p-3 text-[#FF6B2C] mb-6">
-                  {i === 0 ? <Check size={24} /> : i === 1 ? <ArrowRight size={24} /> : <PlayCircle size={24} />}
-                </span>
-                <h3 className="text-2xl font-medium text-white">{feature.title}</h3>
-                <div className="my-6 h-px w-full bg-white/10" />
-                <p className="text-base leading-relaxed text-gray-400">{feature.desc}</p>
+            {video2Testimonials.map((testimonial) => (
+              <motion.div key={testimonial.name} variants={itemVariants} className={`${surface} overflow-hidden group cursor-pointer`}>
+                <Link href={testimonial.link} target="_blank" rel="noopener noreferrer">
+                <div className="relative h-[240px] overflow-hidden">
+                  <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-2xl transition-all group-hover:bg-[#FF6B2C] group-hover:border-[#FF6B2C] group-hover:text-black">
+                      <PlayCircle className="h-8 w-8 ml-1 fill-current" />
+                    </motion.div>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <p className="text-lg font-bold text-white">{testimonial.name}</p>
+                  <p className="text-sm text-gray-400 font-medium">{testimonial.role}</p>
+                  <div className="mt-4 pt-4 border-t border-white/10">
+                    <p className="text-sm font-bold text-[#FF9A5C] flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#FF9A5C]" />
+                      {testimonial.summary}
+                    </p>
+                  </div>
+                </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
+      {/* ---------------- SECTION 3: VIDEO TESTIMONIALS (YOUTUBE SHORTS) ---------------- */}
+      {videos.length > 0 && (
+        <section className={sectionPadding}>
+          <div className="max-w-7xl mx-auto">
+            <ScrollReveal className="mb-10 text-center">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF9A5C] mb-4">Client Proof</p>
+              <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl">Hear It From Them</h2>
+            </ScrollReveal>
+
+            {/* Embed the highly optimized Facade Slider */}
+            <VideoTestimonialsSlider videos={videos} />
+          </div>
+        </section>
+      )}
+
+      {/* ---------------- SECTION 4: PAIN POINT COMPARISON ---------------- */}
+      <section className={sectionPadding}>
+        <div className={container}>
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <ScrollReveal className="rounded-[40px] border border-white/10 bg-[#121212] p-10 shadow-2xl sm:p-14 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#FF6B2C]/5 blur-[100px] rounded-full pointer-events-none" />
+              
+              <h2 className="text-2xl font-medium text-white sm:text-3xl relative z-10">{service.painPoint.title}</h2>
+              <ul className="mt-10 space-y-6 relative z-10">
+                {service.painPoint.points.map((point: string, i: number) => (
+                  <li key={i} className="flex items-start gap-4 text-gray-300">
+                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-red-500">
+                      <X className="h-3.5 w-3.5" strokeWidth={3} />
+                    </div>
+                    <span className="text-lg font-light">{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-12 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center relative z-10">
+                <p className="text-sm text-gray-500 font-medium">Ready to fix this?</p>
+                <button 
+                  data-cal-namespace={CAL_NAMESPACE}
+                  data-cal-link={CAL_LINK}
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  onClick={handleBooking}
+                  className="rounded-full bg-[#FF6B2C] px-8 py-3 text-sm font-bold text-black transition hover:bg-[#ff8145] hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
+                >
+                  Book a Strategy Call
+                </button>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2} className="relative h-[400px] overflow-hidden rounded-[40px] border border-white/10 shadow-2xl sm:h-[520px]">
+              <Image src={service.painPoint.image} alt="Pain Point Visual" fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-10 left-10 max-w-xs">
+                <p className="text-3xl font-medium text-white">Stop guessing.</p>
+                <p className="text-gray-400 mt-2">Data-backed decisions always win.</p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- SECTION 5: WHAT'S INCLUDED (PROCESS TIMELINE) ---------------- */}
+      <section className={`px-6 py-24 z-10 bg-[#0E0E0E] relative overflow-hidden`}>
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#FF6B2C]/5 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className={container}>
+          <ScrollReveal className="text-center max-w-4xl mx-auto mb-24">
+            <h2 className="text-3xl font-medium text-white sm:text-4xl lg:text-5xl tracking-tight">Our Effective Work Process</h2>
+            <p className="mt-6 text-lg text-gray-400">Expert-led project management and a performance-built framework.</p>
+          </ScrollReveal>
+
+          <div className="relative">
+            {/* Desktop Connecting Line 
+              This dashed line runs horizontally behind the cards on md+ screens 
+            */}
+            <div className="absolute top-8 left-0 w-full hidden md:block border-t-2 border-dashed border-white/10 z-0" />
+
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-10%" }}
+              variants={containerVariants}
+              className="grid gap-12 md:gap-6 md:grid-cols-3 lg:grid-cols-5 relative z-10"
+            >
+              {service.features.map((feature: any, i: number) => (
+                <motion.div 
+                  key={i} 
+                  variants={itemVariants}
+                  className="relative group"
+                >
+                  {/* Step Number / Icon Badge */}
+                  <div className="flex justify-center md:justify-start mb-6">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#141414] border border-white/10 text-[#FF9A5C] shadow-xl font-bold text-xl transition-transform duration-500 group-hover:scale-110 group-hover:border-[#FF6B2C]/40 group-hover:bg-[#FF6B2C]/10">
+                      0{i + 1}
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className={`${surface} p-8 text-center md:text-left h-full transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_-15px_rgba(255,107,44,0.1)]`}>
+                    <h3 className="text-xl font-medium text-white mb-4">{feature.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-400">{feature.desc}</p>
+                  </div>
+
+                  {/* Mobile Connecting Line (Vertical) */}
+                  {i !== service.features.length - 1 && (
+                     <div className="absolute left-1/2 -translate-x-1/2 -bottom-10 h-6 border-l-2 border-dashed border-white/10 md:hidden" />
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <PlansSection />
       
       {/* ---------------- SECTION 6: WHOM THIS IS FOR ---------------- */}
-      <section className={sectionPadding}>
+      <section className='px-6 py-24  relative z-10'>
         <div className={container}>
           <ScrollReveal className="mb-16 text-center">
             <h2 className="text-3xl font-medium text-white sm:text-4xl">Whom This Is For</h2>
@@ -553,28 +602,6 @@ export default function ServiceDetailsPage({ params }: { params: Promise<{ slug:
             </ScrollReveal>
           </div>
 
-          {/* <ScrollReveal className="mt-20 flex flex-col items-center gap-6 rounded-[40px] border border-white/10 bg-gradient-to-b from-[#1A1A1A] to-black px-8 py-16 text-center shadow-2xl overflow-hidden relative">
-            <div className="absolute inset-0 bg-[url('https://cdn-icons-png.flaticon.com/512/5192/5192237.png')] opacity-20 mix-blend-overlay" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#FF6B2C]/10 to-transparent pointer-events-none" />
-
-            <p className="text-sm font-bold uppercase tracking-[0.3em] text-[#FF9A5C] relative z-10">Next Steps</p>
-            <h3 className="text-4xl md:text-5xl font-medium text-white relative z-10 max-w-2xl leading-tight">
-              Ready to move with <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">confidence?</span>
-            </h3>
-            <div className="mt-4 relative z-10">
-              <button 
-                data-cal-namespace={CAL_NAMESPACE}
-                data-cal-link={CAL_LINK}
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
-                onClick={handleBooking}
-                className="group relative rounded-full bg-[#FF6B2C] px-12 py-5 text-lg font-bold text-black shadow-2xl shadow-orange-500/30 transition-all hover:scale-[1.03] hover:bg-[#ff8145]"
-              >
-                {service.hero.cta}
-                <div className="absolute inset-0 bg-[#13131370] translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
-              </button>
-            </div>
-            <p className="mt-6 text-sm text-gray-500 relative z-10">Limited spots available for Q1 2026</p>
-          </ScrollReveal> */}
         </div>
       </section>
 

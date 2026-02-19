@@ -62,9 +62,9 @@ export default function Footer() {
               <h2 className="text-4xl md:text-5xl font-medium text-[#0B1220] leading-[1.1] mb-8 tracking-tight">
                 Ready to start <br /> your next project?
               </h2>
-              <Link href="/contact" className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
+              {/* <Link href="/contact" className="bg-[#000000] text-white px-8 py-4 rounded-xl font-medium text-sm shadow-xl hover:bg-black transition-all hover:scale-105">
                 Get started
-              </Link>
+              </Link> */}
             </div>
 
             {/* Right: Booking Widget */}

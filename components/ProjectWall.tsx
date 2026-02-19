@@ -7,10 +7,10 @@ import Link from "next/link";
 
 const projectImages = [
   "https://media.istockphoto.com/id/1409958226/photo/paper-production-machine-in-wastepaper-recycling-factory-paper-and-pulp-mill.jpg?s=612x612&w=0&k=20&c=CeyKPRWuzUHFxjj4hBm6ncXfHEEFH4es8-5ZMad8jbw=",
-  "https://media.istockphoto.com/id/1428709516/photo/shopping-online-woman-hand-online-shopping-on-laptop-computer-with-virtual-graphic-icon.jpg?s=612x612&w=0&k=20&c=ROAncmFL4lbSQdU4VOhyXu-43ngzfEqHE5ZZAw5FtYk=",
-  "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&q=80",
-  "https://media.istockphoto.com/id/2154752387/photo/real-estate-concept-business-home-insurance-and-real-estate-protection-real-estate-investment.jpg?s=612x612&w=0&k=20&c=r6Tmn31ZHHr-8ZuWfZaYIYdqM9nD4dMc6NfDXxwsZeo=",
-  "https://media.istockphoto.com/id/1556119299/photo/empty-aisles-at-a-supermarket.jpg?s=612x612&w=0&k=20&c=jsJAvDjAY2DAMyWE2NMNcr4IguRZjWb_zcspLwMQ6ko=",
+  "https://pix10.agoda.net/hotelImages/656/65669000/65669000_250206092139330414913019.png",
+  "https://www.cyfe.com/wp-content/uploads/2018/02/Screen-Shot-2020-06-03-at-6.44.21-AM-1024x640.png",
+  "https://switchsol.co.in/wp-content/uploads/2025/12/KPS-Aluminum-GlasseS.jpg",
+  "https://media.licdn.com/dms/image/v2/D5622AQHS2oo2Mrm9Dg/feedshare-shrink_800/B56ZxGeYSJGYAg-/0/1770708895221?e=2147483647&v=beta&t=6ehh8mJR7CylJM5OSGIbD0P5QBuB4pbptCoFXY7gFT0",
 ];
 
 const MarqueeRow = ({ images, direction = "left" }: { images: string[], direction?: "left" | "right" }) => {
