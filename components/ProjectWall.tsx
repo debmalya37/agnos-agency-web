@@ -6,11 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const projectImages = [
-  "https://media.istockphoto.com/id/1409958226/photo/paper-production-machine-in-wastepaper-recycling-factory-paper-and-pulp-mill.jpg?s=612x612&w=0&k=20&c=CeyKPRWuzUHFxjj4hBm6ncXfHEEFH4es8-5ZMad8jbw=",
-  "https://pix10.agoda.net/hotelImages/656/65669000/65669000_250206092139330414913019.png",
-  "https://www.cyfe.com/wp-content/uploads/2018/02/Screen-Shot-2020-06-03-at-6.44.21-AM-1024x640.png",
-  "https://switchsol.co.in/wp-content/uploads/2025/12/KPS-Aluminum-GlasseS.jpg",
-  "https://media.licdn.com/dms/image/v2/D5622AQHS2oo2Mrm9Dg/feedshare-shrink_800/B56ZxGeYSJGYAg-/0/1770708895221?e=2147483647&v=beta&t=6ehh8mJR7CylJM5OSGIbD0P5QBuB4pbptCoFXY7gFT0",
+  "assets/1.jpeg", 
+  "assets/2.jpeg", 
+  "assets/3.jpeg", 
+  "assets/4.jpeg", 
 ];
 
 const MarqueeRow = ({ images, direction = "left" }: { images: string[], direction?: "left" | "right" }) => {
