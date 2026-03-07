@@ -38,6 +38,9 @@ export default function Navbar() {
           <Link href="/case-studies" className="hover:text-black transition-colors">
             Case Studies
           </Link>
+          <Link href="/blogs" className="hover:text-black transition-colors">
+            Blogs
+          </Link>
           <Link
             href="/contact"
             className="bg-black text-white px-5 py-2 rounded-lg hover:bg-gray-800 transition-all"
@@ -47,19 +50,25 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden text-black" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
 
       {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="absolute top-20 left-0 w-full bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 md:hidden shadow-xl animate-in fade-in zoom-in duration-200">
+        <div className="absolute top-20 left-0 w-full bg-white text-black border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 md:hidden shadow-xl animate-in fade-in zoom-in duration-200">
           <Link href="/services/web-development" onClick={() => setIsOpen(false)}>
             Services
           </Link>
+          <Link href="/case-studies" className="hover:text-black transition-colors">
+            Case Studies
+          </Link>
           <Link href="/contact" onClick={() => setIsOpen(false)}>
             Contact
+          </Link>
+          <Link href="/blogs" className="hover:text-black transition-colors">
+            Blogs
           </Link>
           <Link
             href="/get-started"

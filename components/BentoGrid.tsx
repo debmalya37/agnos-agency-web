@@ -303,7 +303,7 @@ const isInView = useInView(containerRef, {
 
           {/* --- Card 7: Dennis Barrett --- */}
           <div className="md:col-span-3 bg-[#000000] rounded-[2rem] overflow-hidden relative h-[280px] border border-gray-800">
-            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800" alt="Dennis" className="w-full h-full object-cover saturate-0 opacity-80" />
+            <img src="https://media.licdn.com/dms/image/v2/D4D03AQH03F3lFWa1Yg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1710164927486?e=1774483200&v=beta&t=FzpIP-etljFvtPP51jWmeChCRYHcl-9C7WCQZxukC74" alt="Dennis" className="w-full h-full object-cover saturate-0 opacity-80" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6">
               <h4 className="text-white font-medium text-lg leading-tight">Pratik Newale</h4>
