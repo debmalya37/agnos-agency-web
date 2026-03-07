@@ -63,7 +63,7 @@ export default async function CaseStudiesPage() {
         <div className="max-w-7xl mx-auto">
           
           {caseStudies.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 lg:gap-12">
               {caseStudies.map((study, index) => (
                 <Link 
                   href={`/case-studies/${study.slug}`} 
