@@ -190,7 +190,7 @@ export default function Footer() {
         <div className="border-t border-gray-200 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-500">
            <p>© 2026 Aitek. All rights reserved</p>
            <div className="flex items-center gap-1">
-              <span>Developed by <span className="text-[#FF6B2C]">ThinQiT</span>,</span>
+              <span>Designed by <span className="text-[#FF6B2C]">Aitek Media</span>,</span>
               {/* <span>Powered by <span className="text-[#FF6B2C]">Nextjs</span></span> */}
            </div>
         </div>
